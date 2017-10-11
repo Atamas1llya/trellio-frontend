@@ -1,14 +1,13 @@
 import React, { Component } from 'react';
-import featherIcons from 'feather-icons';
+
+import { Button } from 'react-bootstrap';
+import { bootstrapUtils } from 'react-bootstrap/lib/utils';
+bootstrapUtils.addStyle(Button, 'inverse'); // Add custom 'inverse' button style
 
 import ModalConductor from './ModalConductor';
-
 import Header from './containers/Header';
 
 class App extends Component {
-  componentDidMount() {
-    featherIcons.replace();
-  }
   render() {
     return (
       <div>

@@ -8,6 +8,7 @@ class Header extends Component {
     return (
       <HeaderComponent
         token={this.props.token}
+        toggleModal={this.props.toggleModal}
       />
     );
   }
@@ -17,4 +18,8 @@ const mapState = ({ token }) => ({
   token,
 });
 
-export default connect(mapState)(Header);
+const mapDispatch = dispatch => ({
+  toggleModal: modal => dispatch({ type: 'TOGGLE_MODAL', modal }),
+});
+
+export default connect(mapState, mapDispatch)(Header);

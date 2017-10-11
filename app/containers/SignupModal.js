@@ -7,14 +7,14 @@ class SignupModal extends Component {
   render() {
     return (
       <SignupModalComponent
-
+        onHide={this.props.hideModal}
       />
     );
   }
 };
 
 const mapDispatch = dispatch => ({
-  // login action here
+  hideModal: () => dispatch({ type: 'TOGGLE_MODAL', modal: null }),
 });
 
 export default connect(false, mapDispatch)(SignupModal);

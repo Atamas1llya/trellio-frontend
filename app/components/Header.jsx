@@ -3,7 +3,7 @@ import React from 'react';
 import { Link } from 'react-router';
 import { Navbar, Nav, NavItem } from 'react-bootstrap';
 
-const Header = ({ token }) => {
+const Header = ({ token, ...actions }) => {
   if (token) {
     return (
       <Navbar id="page-header" inverse collapseOnSelect>
@@ -31,8 +31,8 @@ const Header = ({ token }) => {
         </Navbar.Header>
         <Navbar.Collapse>
           <Nav pullRight>
-            <NavItem href="#">Log in</NavItem>
-            <NavItem href="#">Sign up</NavItem>
+            <NavItem href="#" onClick={() => actions.toggleModal('LOGIN')}>Log in</NavItem>
+            <NavItem href="#" onClick={() => actions.toggleModal('SIGNUP')}>Sign up</NavItem>
           </Nav>
         </Navbar.Collapse>
       </Navbar>
