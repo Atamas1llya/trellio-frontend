@@ -30,5 +30,28 @@ export const signup = (credentials) => (dispatch) => {
 }
 
 export const login = (credentials) => (dispatch) => {
-  console.log(credentials);
+  Fetcher('/login', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(credentials),
+  })
+    .then((res) => {
+      dispatch({
+        type: 'SET_TOKEN',
+        token: res.token,
+      });
+      dispatch({
+        type: 'TOGGLE_MODAL',
+        modal: null,
+      });
+      dispatch({
+        type: 'SET_USER',
+        user: res.user,
+      });
+    })
+    .catch((err) => {
+      alertify.alert(err.message)
+    })
 }

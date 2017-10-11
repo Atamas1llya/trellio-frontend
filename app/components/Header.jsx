@@ -1,10 +1,10 @@
 import React from 'react';
 
 import { Link } from 'react-router';
-import { Navbar, Nav, NavItem } from 'react-bootstrap';
+import { Navbar, Nav, NavItem, NavDropdown, MenuItem } from 'react-bootstrap';
 
 const Header = ({ token, user, ...actions }) => {
-  if (token) {
+  if (token && user) {
     return (
       <Navbar id="page-header" inverse collapseOnSelect>
         <Navbar.Header>
@@ -15,7 +15,9 @@ const Header = ({ token, user, ...actions }) => {
         </Navbar.Header>
         <Navbar.Collapse>
           <Nav pullRight>
-            <NavItem href="#">{ user.email }</NavItem>
+            <NavDropdown id="header-dropdown" title={user.name}>
+              <MenuItem onClick={actions.exit}>Exit</MenuItem>
+            </NavDropdown>
           </Nav>
         </Navbar.Collapse>
       </Navbar>

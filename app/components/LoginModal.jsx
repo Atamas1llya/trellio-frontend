@@ -23,7 +23,7 @@ const LoginModal = ({ onHide, onSubmit }) => {
           />
           <FieldGroup
             label="Password"
-            name="passwod"
+            name="password"
             type="password"
             placeholder="********"
             minLength="6"

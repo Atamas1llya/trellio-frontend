@@ -10,6 +10,7 @@ class Header extends Component {
         token={this.props.token}
         user={this.props.user}
         toggleModal={this.props.toggleModal}
+        exit={this.props.exit}
       />
     );
   }
@@ -22,6 +23,7 @@ const mapState = ({ token, user }) => ({
 
 const mapDispatch = dispatch => ({
   toggleModal: modal => dispatch({ type: 'TOGGLE_MODAL', modal }),
+  exit: () => dispatch({ type: 'DELETE_TOKEN' }),
 });
 
 export default connect(mapState, mapDispatch)(Header);
