@@ -4,7 +4,7 @@ import { Link } from 'react-router';
 import { Navbar, Nav, NavItem, NavDropdown, MenuItem } from 'react-bootstrap';
 
 const Header = ({ token, user, ...actions }) => {
-  if (token && user) {
+  if (token && user.name) {
     return (
       <Navbar id="page-header" inverse collapseOnSelect>
         <Navbar.Header>
