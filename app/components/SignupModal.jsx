@@ -16,7 +16,7 @@ const SignupModal = ({ onHide, onSubmit }) => {
         <Modal.Body>
           <FieldGroup
             label="Name"
-            name="text"
+            name="name"
             type="text"
             placeholder="Elon Musk"
             required
@@ -30,7 +30,7 @@ const SignupModal = ({ onHide, onSubmit }) => {
           />
           <FieldGroup
             label="Password"
-            name="passwod"
+            name="password"
             type="password"
             placeholder="********"
             minLength="6"

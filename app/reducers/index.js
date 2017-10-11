@@ -5,9 +5,11 @@ import { routerReducer } from 'react-router-redux';
 
 import token from './token';
 import modals from './modals';
+import user from './user';
 
 export default combineReducers({
   routing: routerReducer,
   token,
   modals,
+  user,
 });

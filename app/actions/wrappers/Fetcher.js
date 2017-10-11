@@ -1,28 +1,27 @@
 import { push } from 'react-router-redux';
-import { apiHost } from '../../config';
+import { apiHost } from '../../../config';
+import alertify from 'alertify.js';
 
 const Fetcher = (url, settings, dispatch) => {
   return new Promise((resolve, reject) => {
+    let ok;
+
     fetch(apiHost + url, settings)
       .then((res) => {
-        if (res.ok) {
-          return res;
-        }
-
         if (res.status === 403) {
           dispatch({ type: 'DELETE_TOKEN' });
         }
-
-        throw new Error(res.statusText);
+        ok = res.ok;
+        return res.json();
       })
-      .then(res => res.json())
       .then((json) => {
-        resolve(json);
+        if (ok) {
+          resolve(json);
+        } else {
+          alertify.error(json.message);
+          reject(json);
+        }
       })
-      .catch((err) => {
-        console.error(err);
-        reject(err);
-      });
   });
 }
 

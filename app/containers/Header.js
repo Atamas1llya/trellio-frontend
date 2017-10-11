@@ -8,14 +8,16 @@ class Header extends Component {
     return (
       <HeaderComponent
         token={this.props.token}
+        user={this.props.user}
         toggleModal={this.props.toggleModal}
       />
     );
   }
 };
 
-const mapState = ({ token }) => ({
+const mapState = ({ token, user }) => ({
   token,
+  user,
 });
 
 const mapDispatch = dispatch => ({

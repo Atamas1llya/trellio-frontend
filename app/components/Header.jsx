@@ -3,7 +3,7 @@ import React from 'react';
 import { Link } from 'react-router';
 import { Navbar, Nav, NavItem } from 'react-bootstrap';
 
-const Header = ({ token, ...actions }) => {
+const Header = ({ token, user, ...actions }) => {
   if (token) {
     return (
       <Navbar id="page-header" inverse collapseOnSelect>
@@ -15,7 +15,7 @@ const Header = ({ token, ...actions }) => {
         </Navbar.Header>
         <Navbar.Collapse>
           <Nav pullRight>
-            <NavItem href="#">email@gmail.com</NavItem>
+            <NavItem href="#">{ user.email }</NavItem>
           </Nav>
         </Navbar.Collapse>
       </Navbar>
