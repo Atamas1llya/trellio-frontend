@@ -6,26 +6,19 @@ import { updateTaskStatus } from '../actions/api/tasks';
 import TaskComponent from '../components/Task';
 
 class Task extends Component {
-  constructor(props) {
-    super(props);
-    this.state = props.task;
-  }
-
   updateStatus(status) {
     const { board_id, token } = this.props;
-    const task_id = this.state._id;
+    const task_id = this.props.task._id;
 
-    updateTaskStatus({
+    this.props.updateTaskStatus({
       board_id,
       task_id,
       status,
     }, token);
-
-    this.setState({ status })
   }
-  
+
   render() {
-    const task = this.state;
+    const { task } = this.props;
 
     return (
       <TaskComponent
@@ -43,4 +36,8 @@ const mapState = ({ token }) => ({
   token,
 });
 
-export default connect(mapState)(Task);
+const mapDispatch = dispatch => ({
+  updateTaskStatus: (data, token) => dispatch(updateTaskStatus(data, token)),
+});
+
+export default connect(mapState, mapDispatch)(Task);
