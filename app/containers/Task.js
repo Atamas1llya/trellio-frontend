@@ -10,11 +10,12 @@ class Task extends Component {
     super(props);
     this.state = props.task;
   }
+
   updateStatus(status) {
     const { board_id, token } = this.props;
     const task_id = this.state._id;
 
-    this.props.updateTaskStatus({
+    updateTaskStatus({
       board_id,
       task_id,
       status,
@@ -22,6 +23,7 @@ class Task extends Component {
 
     this.setState({ status })
   }
+  
   render() {
     const task = this.state;
 
@@ -41,8 +43,4 @@ const mapState = ({ token }) => ({
   token,
 });
 
-const mapDispatch = dispatch => ({
-  updateTaskStatus: (task, token) => dispatch(updateTaskStatus(task, token)),
-});
-
-export default connect(mapState, mapDispatch)(Task);
+export default connect(mapState)(Task);

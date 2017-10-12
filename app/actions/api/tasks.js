@@ -21,18 +21,20 @@ export const deleteTask = ({ board_id, task_id }, token) => dispatch => {
 
 }
 
-export const updateTaskStatus = ({ board_id, task_id, status }, token) => dispatch => {
-  Fetcher(`/boards/${board_id}/tasks/${task_id}/${status}`, {
-    method: 'PATCH',
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${token}`,
-    },
-  })
-    .then((res) => {
-      console.log(res);
+export const updateTaskStatus = ({ board_id, task_id, status }, token) => {
+  return new Promise((resolve) => {
+    Fetcher(`/boards/${board_id}/tasks/${task_id}/${status}`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`,
+      },
     })
-    .catch((err) => {
-      alertify.alert(err.message)
-    })
+      .then((res) => {
+        resolve();
+      })
+      .catch((err) => {
+        alertify.alert(err.message)
+      })
+  });
 }
