@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 
 import BoardComponent from '../components/Board';
 import Task from './Task';
+import CreateTask from '../components/CreateTask';
 
 class Board extends Component {
   render() {
@@ -19,6 +20,7 @@ class Board extends Component {
             )
           })
         }
+        <CreateTask />
       </BoardComponent>
     );
   }

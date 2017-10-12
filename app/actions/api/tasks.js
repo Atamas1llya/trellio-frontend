@@ -18,7 +18,24 @@ export const getTasks = (board_id) => {
 }
 
 export const deleteTask = ({ board_id, task_id }, token) => dispatch => {
+  dispatch({
+    type: 'DELETE_TASK',
+    board_id, task_id,
+  });
 
+  Fetcher(`/boards/${board_id}/tasks/${task_id}`, {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`,
+    },
+  })
+    .then((res) => {
+      console.log(res);
+    })
+    .catch((err) => {
+      alertify.alert(err.message)
+    });
 }
 
 export const updateTaskStatus = ({ board_id, task_id, status }, token) => dispatch => {
@@ -35,7 +52,7 @@ export const updateTaskStatus = ({ board_id, task_id, status }, token) => dispat
     },
   })
     .then((res) => {
-      
+
     })
     .catch((err) => {
       alertify.alert(err.message)

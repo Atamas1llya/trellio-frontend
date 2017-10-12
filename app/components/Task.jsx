@@ -1,7 +1,5 @@
 import React from 'react';
 
-import { ListGroupItem } from 'react-bootstrap';
-
 export default ({ title, authorized, completed, ...actions }) => {
   if (authorized) {
     if (completed) {
@@ -13,7 +11,10 @@ export default ({ title, authorized, completed, ...actions }) => {
               className="material-icons action-done"
               onClick={actions.activateTask}
             >replay</i>
-            <i className="material-icons action-delete">close</i>
+            <i
+              className="material-icons action-delete"
+              onClick={actions.deleteTask}
+            >close</i>
           </span>
         </div>
       );
@@ -26,7 +27,10 @@ export default ({ title, authorized, completed, ...actions }) => {
               className="material-icons action-done"
               onClick={actions.completeTask}
             >done</i>
-            <i className="material-icons action-delete">close</i>
+            <i
+              className="material-icons action-delete"
+              onClick={actions.deleteTask}
+            >close</i>
           </span>
         </div>
       );
