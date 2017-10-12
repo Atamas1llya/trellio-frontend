@@ -6,6 +6,7 @@ import { getBoards } from '../actions/api/boards';
 import BoardsComponent from '../components/Boards';
 
 import Board from './Board';
+import CreateBoard from '../components/CreateBoard';
 
 class Boards extends Component {
   state = {
@@ -26,6 +27,7 @@ class Boards extends Component {
               return <Board board={board} key={board._id} />
             })
           }
+          <CreateBoard />
         </BoardsComponent>
       </div>
     );

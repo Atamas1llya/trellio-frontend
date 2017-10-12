@@ -1,11 +1,10 @@
 #boards-row {
-  height: calc(~'100vh - 53px - 30px'); // page height - header height - header bottom margin
-
   padding: 1vw;
 
   display: flex;
   flex-direction: row;
-  align-items: baseline;
+  flex-wrap: wrap;
+  align-items: flex-start;
   justify-content: flex-start;
 
   .board {
@@ -16,5 +15,24 @@
       color: #ECF0F1;
     }
 
+  }
+}
+
+.board.create {
+  .panel-body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    cursor: pointer;
+
+    > i {
+      font-size: 28px;
+    }
+
+    &:hover {
+      background: #ECF0F1;
+      transition: 0.2s;
+    }
   }
 }
