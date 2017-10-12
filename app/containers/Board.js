@@ -28,7 +28,13 @@ class Board extends Component {
       <BoardComponent title={this.props.board.title}>
         {
           tasks.map((task) => {
-            return <Task task={task} key={task._id} />
+            return (
+              <Task
+                task={task}
+                board_id={this.props.board._id}
+                key={task._id}
+              />
+            )
           })
         }
       </BoardComponent>

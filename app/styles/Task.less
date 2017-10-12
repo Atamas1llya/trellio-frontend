@@ -5,4 +5,54 @@
   border-radius: 3px;
 
   padding: 5px 10px;
+  height: 40px;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: stretch;
+
+  .title {
+    cursor: pointer;
+
+    &:hover {
+      color: #16A085;
+      transition: 0.2s;
+    }
+  }
+
+  .actions {
+    // height: 100%;
+    display: none;
+
+    > i {
+      opacity: 0.8;
+      cursor: pointer;
+
+      &:hover {
+
+        &.action-done {
+          color: #27AE60;
+        }
+        &.action-delete {
+          color: #C0392B;
+        }
+        transition: 0.2s;
+      }
+    }
+  }
+
+  &:hover {
+    .actions {
+      display: flex;
+      align-items: center;
+    }
+  }
+}
+
+.task.completed {
+  background: #ECF0F1;
+  .title {
+    text-decoration: line-through;
+  }
 }

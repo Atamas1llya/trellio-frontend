@@ -16,3 +16,23 @@ export const getTasks = (board_id) => {
       })
   });
 }
+
+export const deleteTask = ({ board_id, task_id }, token) => dispatch => {
+
+}
+
+export const updateTaskStatus = ({ board_id, task_id, status }, token) => dispatch => {
+  Fetcher(`/boards/${board_id}/tasks/${task_id}/${status}`, {
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`,
+    },
+  })
+    .then((res) => {
+      console.log(res);
+    })
+    .catch((err) => {
+      alertify.alert(err.message)
+    })
+}

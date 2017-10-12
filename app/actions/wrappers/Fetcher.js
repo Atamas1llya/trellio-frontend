@@ -14,7 +14,7 @@ const Fetcher = (url, settings, dispatch = false) => {
         ok = res.ok;
         return res.json();
       })
-      .then((json) => {
+      .then((json = false) => {
         if (ok) {
           resolve(json);
         } else {
