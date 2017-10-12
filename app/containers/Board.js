@@ -1,33 +1,15 @@
 import React, { Component } from 'react';
 
-import { getTasks } from '../actions/api/tasks';
-
 import BoardComponent from '../components/Board';
 import Task from './Task';
 
 class Board extends Component {
-  state = {
-    tasks: [],
-  }
-
-  componentDidMount() {
-    this.getTasks();
-  }
-
-  getTasks() {
-    const { _id } = this.props.board;
-    getTasks(_id)
-      .then((tasks) => {
-        this.setState({ tasks });
-      })
-  }
-
   render() {
-    const { tasks } = this.state;
+    const { board, tasks } = this.props;
     return (
-      <BoardComponent title={this.props.board.title}>
+      <BoardComponent title={board.title}>
         {
-          tasks.map((task) => {
+          board.tasks.map((task) => {
             return (
               <Task
                 task={task}

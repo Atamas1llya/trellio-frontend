@@ -9,22 +9,17 @@ import Board from './Board';
 import CreateBoard from '../components/CreateBoard';
 
 class Boards extends Component {
-  state = {
-    boards: [],
-  }
-
   componentDidMount() {
-    getBoards()
-      .then(boards => this.setState({ boards }));
+    this.props.getBoards();
   }
-
   render() {
+    const { boards } = this.props;
     return (
       <div>
         <BoardsComponent>
           {
-            this.state.boards.map((board) => {
-              return <Board board={board} key={board._id} />
+            boards.map((board) => {
+              return <Board board={board} tasks={board.tasks} key={board._id} />
             })
           }
           <CreateBoard />
@@ -34,5 +29,12 @@ class Boards extends Component {
   }
 };
 
+const mapState = ({ boards }) => ({
+  boards
+});
 
-export default Boards;
+const mapDispatch = dispatch => ({
+  getBoards: () => dispatch(getBoards()),
+});
+
+export default connect(mapState, mapDispatch)(Boards);
