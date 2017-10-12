@@ -10,6 +10,7 @@ import thunk from 'redux-thunk';
 
 
 import App from './App';
+import Boards from './containers/Boards';
 
 import './styles/index.less';
 
@@ -23,7 +24,7 @@ ReactDOM.render(
   <Provider store={store}>
     <Router history={history}>
       <Router path="/" component={App}>
-
+        <IndexRoute component={Boards} />
       </Router>
     </Router>
   </Provider>,

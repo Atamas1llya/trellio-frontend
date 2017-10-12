@@ -10,6 +10,7 @@ export const signup = (credentials) => (dispatch) => {
     body: JSON.stringify(credentials),
   })
     .then((res) => {
+      alertify.alert(res.message);
       dispatch({
         type: 'SET_TOKEN',
         token: res.token,
@@ -22,7 +23,6 @@ export const signup = (credentials) => (dispatch) => {
         type: 'SET_USER',
         user: res.user,
       });
-      alertify.alert(res.message);
     })
     .catch((err) => {
       alertify.alert(err.message)

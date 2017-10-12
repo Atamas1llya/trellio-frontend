@@ -2,7 +2,7 @@ import { push } from 'react-router-redux';
 import { apiHost } from '../../../config';
 import alertify from 'alertify.js';
 
-const Fetcher = (url, settings, dispatch) => {
+const Fetcher = (url, settings, dispatch = false) => {
   return new Promise((resolve, reject) => {
     let ok;
 
