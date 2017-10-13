@@ -1,62 +1,25 @@
 import React, { Component } from 'react';
-import clickOutside from 'react-click-outside';
+import InlineEdit from 'react-edit-inline';
 
 import { Panel, Col } from 'react-bootstrap';
 
-class Board extends Component {
-  state = {
-    editable: false,
-  }
+const Board = ({ title, children, ...actions }) => {
+  const editableTitle = (
+    <InlineEdit
+      activeClassName="panel-title inline-input"
+      text={title || 'Title here'}
+      paramName="title"
+      change={e => actions.updateTitle(e)}
+    />
+  )
 
-  handleClickOutside() {
-    this.toggle();
-  }
-
-  toggle() {
-    this.setState({
-      editable: !this.state.editable,
-    })
-  }
-
-  render() {
-    const { title } = this.props;
-
-    const togglableTitle = (
-      <span onClick={() => this.toggle()}>{ title || 'Board title' }</span>
-    )
-
-    const titleInput = (
-      <input
-        type="text"
-        className="inline-input"
-        autoFocus
-        defaultValue={title}
-        onFocus={e => e.target.select()}
-        onChange={e => this.props.updateTitle(e)}
-        placeholder="Board title"
-      />
-    )
-
-    if (this.state.editable) {
-      return (
-        <Col xs={12} md={5} lg={3}>
-          <Panel className="board fadeIn animated" header={titleInput}>
-              { this.props.children }
-          </Panel>
-        </Col>
-      );
-    } else {
-      return (
-        <Col xs={12} md={5} lg={3}>
-          <Panel
-            className="board fadeIn animated"
-            header={togglableTitle}>
-              { this.props.children }
-          </Panel>
-        </Col>
-      );
-    }
-  }
+  return (
+    <Col xs={12} md={5} lg={3}>
+      <Panel className="board fadeIn animated" header={editableTitle}>
+        { children }
+      </Panel>
+    </Col>
+  );
 }
 
-export default clickOutside(Board)
+export default Board;

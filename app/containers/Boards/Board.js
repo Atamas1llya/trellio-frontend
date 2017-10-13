@@ -12,27 +12,22 @@ class Board extends Component {
     saveTitleTimeout: false,
   }
 
-  updateBoardTitle(e) {
+  updateBoardTitle({ title }) {
     const { board, token } = this.props;
     let { saveTitleTimeout } = this.state;
 
-    const { value } = e.target;
 
     clearTimeout(saveTitleTimeout);
 
     this.props.updateBoardLocally({ // User will not wait
       _id: board._id,
-      update: {
-        title: value
-      }
+      update: { title },
     });
 
     saveTitleTimeout = setTimeout(() => { // Data saved
       this.props.updateBoard({
         _id: board._id,
-        update: {
-          title: value
-        }
+        update: { title },
       }, token);
     }, 500);
 
