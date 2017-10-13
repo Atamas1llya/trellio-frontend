@@ -73,3 +73,23 @@ export const updateBoard = ({ _id, update }, token) => dispatch => {
       alertify.alert(err.message)
     });
 }
+
+export const deleteBoard = (_id, token) => dispatch => {
+  Fetcher(`/boards/${_id}`, {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`,
+    },
+  }, dispatch)
+    .then((res) => {
+      dispatch({
+        type: 'DELETE_BOARD',
+        _id,
+      });
+    })
+    .catch((err) => {
+      console.error(err);
+      alertify.alert(err.message)
+    });
+}

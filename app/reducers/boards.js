@@ -26,7 +26,7 @@ export default (state = initialState, action) => {
       })
     }
     case 'DELETE_BOARD': {
-      return action.boards.filter((board) => board._id !== action._id);
+      return state.filter((board) => board._id !== action._id);
     }
     default: return state;
   }

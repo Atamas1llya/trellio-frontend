@@ -12,7 +12,7 @@ const Board = ({ title, children, ...actions }) => {
         paramName="title"
         change={e => actions.updateTitle(e)}
       />
-      <i className="material-icons icon-delete">close</i>
+      <i className="material-icons icon-delete" onClick={actions.deleteBoard}>close</i>
     </span>
   )
 
