@@ -4,7 +4,7 @@ export default ({ title, authorized, completed, ...actions }) => {
   if (authorized) {
     if (completed) {
       return (
-        <div className="task completed">
+        <div className="task completed fadeIn animated">
           <span className="title">{ title }</span>
           <span className="actions">
             <i
@@ -20,7 +20,7 @@ export default ({ title, authorized, completed, ...actions }) => {
       );
     } else {
       return (
-        <div className="task">
+        <div className="task fadeIn animated">
           <span className="title">{ title }</span>
           <span className="actions">
             <i
@@ -37,7 +37,7 @@ export default ({ title, authorized, completed, ...actions }) => {
     }
   } else {
     return (
-      <div className="task">
+      <div className="task fadeIn animated">
         <span className="title">{ title }</span>
       </div>
     );

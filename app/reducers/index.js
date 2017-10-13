@@ -7,6 +7,7 @@ import token from './token';
 import modals from './modals';
 import user from './user';
 import boards from './boards';
+import tasks from './tasks';
 
 export default combineReducers({
   routing: routerReducer,
@@ -14,4 +15,5 @@ export default combineReducers({
   modals,
   user,
   boards,
+  tasks,
 });

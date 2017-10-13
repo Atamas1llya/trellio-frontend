@@ -1,7 +1,7 @@
 import Fetcher from '../wrappers/Fetcher';
 import alertify from 'alertify.js';
 
-export const getTasks = (board_id) => {
+export const getTasks = (board_id) => dispatch => {
   return new Promise((resolve) => {
     Fetcher(`/boards/${board_id}/tasks`, {
       headers: {
@@ -9,6 +9,10 @@ export const getTasks = (board_id) => {
       },
     })
       .then((res) => {
+        dispatch({
+          type: 'GET_TASKS',
+          tasks: res.tasks,
+        });
         resolve(res.tasks);
       })
       .catch((err) => {
@@ -20,7 +24,7 @@ export const getTasks = (board_id) => {
 export const deleteTask = ({ board_id, task_id }, token) => dispatch => {
   dispatch({
     type: 'DELETE_TASK',
-    board_id, task_id,
+    _id: task_id,
   });
 
   Fetcher(`/boards/${board_id}/tasks/${task_id}`, {
@@ -41,7 +45,8 @@ export const deleteTask = ({ board_id, task_id }, token) => dispatch => {
 export const updateTaskStatus = ({ board_id, task_id, status }, token) => dispatch => {
   dispatch({
     type: 'UPDATE_TASK_STATUS',
-    board_id, task_id, status,
+    _id: task_id,
+    status,
   });
 
   Fetcher(`/boards/${board_id}/tasks/${task_id}/${status}`, {

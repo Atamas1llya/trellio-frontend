@@ -1,19 +1,19 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { getBoards } from '../actions/api/boards';
+import { getBoards } from '../../actions/api/boards';
 
-import BoardsComponent from '../components/Boards';
+import BoardsComponent from '../../components/Boards';
 
 import Board from './Board';
-import CreateBoard from '../components/CreateBoard';
+import CreateBoard from '../../components/Boards/CreateBoard';
 
 class Boards extends Component {
   componentDidMount() {
     this.props.getBoards();
   }
   render() {
-    const { boards } = this.props;
+    const { boards, token } = this.props;
     return (
       <div>
         <BoardsComponent>
@@ -22,14 +22,15 @@ class Boards extends Component {
               return <Board board={board} tasks={board.tasks} key={board._id} />
             })
           }
-          <CreateBoard />
+          { token && <CreateBoard /> }
         </BoardsComponent>
       </div>
     );
   }
 };
 
-const mapState = ({ boards }) => ({
+const mapState = ({ token, boards }) => ({
+  token,
   boards
 });
 

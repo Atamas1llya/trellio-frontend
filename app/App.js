@@ -5,7 +5,7 @@ import { Button } from 'react-bootstrap';
 import { bootstrapUtils } from 'react-bootstrap/lib/utils';
 bootstrapUtils.addStyle(Button, 'inverse'); // Add custom 'inverse' button style
 
-import ModalConductor from './ModalConductor';
+import ModalConductor from './containers/Modals/conductor';
 import Header from './containers/Header';
 
 import { getProfile } from './actions/api/profile';
@@ -18,6 +18,7 @@ class App extends Component {
       this.props.getProfile(token);
     }
   }
+  
   render() {
     return (
       <div>

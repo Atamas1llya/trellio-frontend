@@ -1,8 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import LoginModal from './containers/LoginModal';
-import SignupModal from './containers/SignupModal';
+import LoginModal from './Login';
+import SignupModal from './Signup';
 
 const ModalConductor = ({ activeModal }) => {
   switch (activeModal) {

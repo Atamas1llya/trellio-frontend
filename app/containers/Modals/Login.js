@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import getFormData from 'get-form-data';
 
-import { login } from '../actions/api/auth';
+import { login } from '../../actions/api/auth';
 
-import LoginModalComponent from '../components/LoginModal';
+import LoginModalComponent from '../../components/Modals/Login';
 
 class LoginModal extends Component {
   login(e) {

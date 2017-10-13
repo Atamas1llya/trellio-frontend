@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { Modal, Button } from 'react-bootstrap';
-import FieldGroup from './FieldGroup';
+import FieldGroup from '../FieldGroup';
 
 const LoginModal = ({ onHide, onSubmit }) => {
   return (

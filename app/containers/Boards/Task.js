@@ -1,27 +1,24 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { updateTaskStatus, deleteTask } from '../actions/api/tasks';
+import { updateTaskStatus, deleteTask } from '../../actions/api/tasks';
 
-import TaskComponent from '../components/Task';
+import TaskComponent from '../../components/Boards/tasks/Task';
 
 class Task extends Component {
   updateStatus(status) {
-    const { board_id, token } = this.props;
-    const task_id = this.props.task._id;
-
     this.props.updateTaskStatus({
-      board_id,
-      task_id,
+      board_id: this.props.board_id,
+      task_id: this.props.task._id,
       status,
-    }, token);
+    }, this.props.token);
   }
 
   deleteTask() {
-    const { board_id, token } = this.props;
-    const task_id = this.props.task._id;
-
-    this.props.deleteTask({ board_id, task_id }, token);
+    this.props.deleteTask({
+      board_id: this.props.board_id,
+      task_id: this.props.task._id,
+    }, this.props.token);
   }
 
   render() {
@@ -29,12 +26,12 @@ class Task extends Component {
 
     return (
       <TaskComponent
-        {...task}
         completed={task.status === 'complete'}
         authorized={!!this.props.token}
         completeTask={() => this.updateStatus('complete')}
         activateTask={() => this.updateStatus('active')}
         deleteTask={() => this.deleteTask()}
+        {...task}
       />
     );
   }

@@ -14,19 +14,15 @@ export const getBoards = () => dispatch => {
       const jobs = [];
 
       boards.forEach((board) => {
-        jobs.push(getTasks(board._id))
+        jobs.push(dispatch(getTasks(board._id)))
       });
 
-      Promise.all(jobs).then((tasks) => {
-        tasks.forEach((task, index) => {
-          boards[index].tasks = task;
-        })
-      }).then(() => {
-        dispatch({
-          type: 'GET_BOARDS',
-          boards,
-        });
-      })
+      dispatch({
+        type: 'GET_BOARDS',
+        boards,
+      });
+
+      Promise.all(jobs);
     })
     .catch((err) => {
       console.error(err);
