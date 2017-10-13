@@ -5,6 +5,17 @@ export default (state = initialState, action) => {
     case 'GET_BOARDS': {
       return action.boards;
     }
+    case 'UPDATE_BOARD': {
+      return state.map((board) => {
+        if (board._id === action._id) {
+          return {
+            ...board,
+            ...action.update,
+          }
+        }
+        return board;
+      })
+    }
     case 'DELETE_BOARD': {
       return action.boards.filter((board) => board._id !== action._id);
     }

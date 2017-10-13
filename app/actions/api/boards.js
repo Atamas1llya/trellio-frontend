@@ -29,3 +29,25 @@ export const getBoards = () => dispatch => {
       alertify.alert(err.message)
     });
 }
+
+export const updateBoard = ({ _id, update }, token) => dispatch => {
+  Fetcher(`/boards/${_id}`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`,
+    },
+    body: JSON.stringify(update),
+  }, dispatch)
+    .then((res) => {
+      dispatch({
+        type: 'UPDATE_BOARD',
+        _id,
+        update,
+      });
+    })
+    .catch((err) => {
+      console.error(err);
+      alertify.alert(err.message)
+    });
+}
