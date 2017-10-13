@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import uuidV1 from 'uuid/v1'
 
-import { getBoards } from '../../actions/api/boards';
+import { createBoard, getBoards } from '../../actions/api/boards';
 
 import BoardsComponent from '../../components/Boards';
 
@@ -12,6 +13,14 @@ class Boards extends Component {
   componentDidMount() {
     this.props.getBoards();
   }
+
+  createEmptyBoard() {
+    this.props.createBoard({
+      title: 'New board',
+      _id: uuidV1(),
+    }, this.props.token);
+  }
+
   render() {
     const { boards, token } = this.props;
     return (
@@ -22,7 +31,12 @@ class Boards extends Component {
               return <Board board={board} tasks={board.tasks} key={board._id} />
             })
           }
-          { token && <CreateBoard /> }
+          {
+            token &&
+            <CreateBoard
+              createBoard={() => this.createEmptyBoard()}
+            />
+          }
         </BoardsComponent>
       </div>
     );
@@ -35,6 +49,7 @@ const mapState = ({ token, boards }) => ({
 });
 
 const mapDispatch = dispatch => ({
+  createBoard: (board, token) => dispatch(createBoard(board, token)),
   getBoards: () => dispatch(getBoards()),
 });
 

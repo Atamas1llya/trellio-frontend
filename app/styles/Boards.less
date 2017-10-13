@@ -10,8 +10,8 @@
   .board {
     // border: 1px solid rgba(236, 240, 241, 1);
     .panel-heading {
-      min-height: 70px;
-      font-size: 22px;
+      min-height: 60px;
+      font-size: 20px;
 
       display: flex;
       align-items: center;
@@ -19,6 +19,26 @@
 
       background: #34495E;
       color: #ECF0F1;
+
+      span {
+        width: 100%;
+
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        i {
+          display: none;
+
+          cursor: pointer;
+        }
+
+        &:hover {
+          i {
+            display: block;
+          }
+        }
+      }
 
       .panel-title {
         font-size: inherit;

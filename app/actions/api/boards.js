@@ -30,6 +30,28 @@ export const getBoards = () => dispatch => {
     });
 }
 
+export const createBoard = (board, token) => dispatch => {
+  dispatch({
+    type: 'CREATE_BOARD',
+    board,
+  });
+  Fetcher('/boards', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`,
+    },
+    body: JSON.stringify(board),
+  }, dispatch)
+    .then((res) => {
+      dispatch(getBoards()); // To get true _id and other server-created params
+    })
+    .catch((err) => {
+      console.error(err);
+      alertify.alert(err.message)
+    });
+}
+
 export const updateBoard = ({ _id, update }, token) => dispatch => {
   Fetcher(`/boards/${_id}`, {
     method: 'PUT',

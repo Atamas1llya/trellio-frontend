@@ -5,17 +5,20 @@ import { Panel, Col } from 'react-bootstrap';
 
 const Board = ({ title, children, ...actions }) => {
   const editableTitle = (
-    <InlineEdit
-      activeClassName="panel-title inline-input"
-      text={title || 'Title here'}
-      paramName="title"
-      change={e => actions.updateTitle(e)}
-    />
+    <span>
+      <InlineEdit
+        activeClassName="panel-title inline-input"
+        text={title || 'Title here'}
+        paramName="title"
+        change={e => actions.updateTitle(e)}
+      />
+      <i className="material-icons icon-delete">close</i>
+    </span>
   )
 
   return (
     <Col xs={12} md={5} lg={3}>
-      <Panel className="board fadeIn animated" header={editableTitle}>
+      <Panel className="board" header={editableTitle}>
         { children }
       </Panel>
     </Col>

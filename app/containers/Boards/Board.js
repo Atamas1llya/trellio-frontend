@@ -29,7 +29,7 @@ class Board extends Component {
         _id: board._id,
         update: { title },
       }, token);
-    }, 500);
+    }, 300);
 
     this.setState({ saveTitleTimeout }); // Profit. Little wierd profit
   }

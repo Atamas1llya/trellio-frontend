@@ -8,11 +8,11 @@ export default ({ title, authorized, completed, ...actions }) => {
           <span className="title">{ title }</span>
           <span className="actions">
             <i
-              className="material-icons action-done"
+              className="material-icons icon-done"
               onClick={actions.activateTask}
             >replay</i>
             <i
-              className="material-icons action-delete"
+              className="material-icons icon-delete"
               onClick={actions.deleteTask}
             >close</i>
           </span>
@@ -24,11 +24,11 @@ export default ({ title, authorized, completed, ...actions }) => {
           <span className="title">{ title }</span>
           <span className="actions">
             <i
-              className="material-icons action-done"
+              className="material-icons icon-done"
               onClick={actions.completeTask}
             >done</i>
             <i
-              className="material-icons action-delete"
+              className="material-icons icon-delete"
               onClick={actions.deleteTask}
             >close</i>
           </span>
