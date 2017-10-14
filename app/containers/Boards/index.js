@@ -29,14 +29,13 @@ class Boards extends Component {
               return <Board board={board} tasks={board.tasks} key={index} />
             })
           }
-          {
-            token &&
-            <CreateBoard
-              createBoard={() => this.createEmptyBoard()}
-            />
-          }
+          <CreateBoard
+            createBoard={() => this.createEmptyBoard()}
+            authorized={!!token}
+            openLoginModal={() => this.props.toggleModal('LOGIN')}
+          />
         </BoardsComponent>
-        {this.props.children}
+        { this.props.children }
       </div>
     );
   }
@@ -50,6 +49,7 @@ const mapState = ({ token, boards }) => ({
 const mapDispatch = dispatch => ({
   createBoard: (board, token) => dispatch(createBoard(board, token)),
   getBoards: () => dispatch(getBoards()),
+  toggleModal: modal => dispatch({ type: 'TOGGLE_MODAL', modal }),
 });
 
 export default connect(mapState, mapDispatch)(Boards);
