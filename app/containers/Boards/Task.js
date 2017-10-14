@@ -1,9 +1,14 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { SortableElement } from 'react-sortable-hoc';
 
 import { updateTask, updateTaskStatus, deleteTask } from '../../actions/api/tasks';
 
 import TaskComponent from '../../components/Boards/tasks/Task';
+
+const SortableItem = SortableElement((props) => (
+  <TaskComponent {...props} />
+))
 
 class Task extends Component {
   updateStatus(status) {
@@ -37,13 +42,14 @@ class Task extends Component {
     const { task } = this.props;
 
     return (
-      <TaskComponent
+      <SortableItem
         completed={task.status === 'complete'}
         authorized={!!this.props.token}
         updateTitle={(e) => this.updateTask(e)}
         completeTask={() => this.updateStatus('complete')}
         activateTask={() => this.updateStatus('active')}
         deleteTask={() => this.deleteTask()}
+        index={this.props.index}
         {...task}
       />
     );
