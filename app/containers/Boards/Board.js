@@ -7,6 +7,7 @@ import Task from './Task';
 import CreateTask from '../../components/Boards/tasks/CreateTask';
 
 import { updateBoard, deleteBoard } from '../../actions/api/boards';
+import { createTask } from '../../actions/api/tasks';
 
 class Board extends Component {
   state = {
@@ -42,6 +43,16 @@ class Board extends Component {
     })
   }
 
+  createEmptyTask() {
+    const { token, board } = this.props;
+    const task = {
+      title: "New task",
+      board: board._id,
+    }
+
+    this.props.createTask(task, token);
+  }
+
   render() {
     const { token, board, tasks } = this.props;
     return (
@@ -51,17 +62,22 @@ class Board extends Component {
         deleteBoard={() => this.deleteBoard()}
       >
         {
-          tasks.map((task) => {
+          tasks.map((task, index) => {
             return (
               <Task
                 task={task}
                 board_id={this.props.board._id}
-                key={task._id}
+                key={index}
               />
             )
           })
         }
-        { token && <CreateTask /> }
+        {
+          token &&
+          <CreateTask
+            createTask={() => this.createEmptyTask()}
+          />
+        }
       </BoardComponent>
     );
   }
@@ -76,6 +92,7 @@ const mapDispatch = dispatch => ({
   updateBoard: (params, token) => dispatch(updateBoard(params, token)),
   updateBoardLocally: ({ _id, update }) => dispatch({ type: 'UPDATE_BOARD', _id, update }),
   deleteBoard: (_id, token) => dispatch(deleteBoard(_id, token)),
+  createTask: (task, token) => dispatch(createTask(task, token)),
 });
 
 export default connect(mapState, mapDispatch)(Board);

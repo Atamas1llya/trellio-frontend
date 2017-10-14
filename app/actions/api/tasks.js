@@ -1,5 +1,7 @@
-import Fetcher from '../wrappers/Fetcher';
 import alertify from 'alertify.js';
+import uuidV1 from 'uuid/v1';
+
+import Fetcher from '../wrappers/Fetcher';
 
 export const getTasks = (board_id) => dispatch => {
   return new Promise((resolve) => {
@@ -19,6 +21,28 @@ export const getTasks = (board_id) => dispatch => {
         alertify.alert(err.message)
       })
   });
+}
+
+export const createTask = (task, token) => dispatch => {
+  dispatch({
+    type: 'CREATE_TASK',
+    task,
+  });
+
+  Fetcher(`/boards/${task.board}/tasks`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`,
+    },
+    body: JSON.stringify(task),
+  })
+    .then((res) => {
+      dispatch(getTasks(task.board));
+    })
+    .catch((err) => {
+      alertify.alert(err.message)
+    });
 }
 
 export const deleteTask = ({ board_id, task_id }, token) => dispatch => {

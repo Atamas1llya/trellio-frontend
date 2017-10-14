@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import uuidV1 from 'uuid/v1'
 
 import { createBoard, getBoards } from '../../actions/api/boards';
 
@@ -17,7 +16,6 @@ class Boards extends Component {
   createEmptyBoard() {
     this.props.createBoard({
       title: 'New board',
-      _id: uuidV1(),
     }, this.props.token);
   }
 
@@ -27,8 +25,8 @@ class Boards extends Component {
       <div>
         <BoardsComponent>
           {
-            boards.map((board) => {
-              return <Board board={board} tasks={board.tasks} key={board._id} />
+            boards.map((board, index) => {
+              return <Board board={board} tasks={board.tasks} key={index} />
             })
           }
           {

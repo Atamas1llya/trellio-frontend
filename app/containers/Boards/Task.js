@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import alertify from 'alertify.js';
 
 import { updateTaskStatus, deleteTask } from '../../actions/api/tasks';
 
@@ -15,10 +16,12 @@ class Task extends Component {
   }
 
   deleteTask() {
-    this.props.deleteTask({
-      board_id: this.props.board_id,
-      task_id: this.props.task._id,
-    }, this.props.token);
+    alertify.confirm('Are you sure?', () => {
+      this.props.deleteTask({
+        board_id: this.props.board_id,
+        task_id: this.props.task._id,
+      }, this.props.token);
+    })
   }
 
   render() {
