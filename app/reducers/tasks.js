@@ -5,6 +5,12 @@ export default (state = initialState, action) => {
     case 'GET_TASKS': {
       return action.tasks;
     }
+    case 'GET_BOARD_TASKS': {
+      return [
+        ...state.filter(task => task.board !== action.board_id),
+        ...action.tasks,
+      ];
+    }
     case 'CREATE_TASK': {
       return [
         ...state,

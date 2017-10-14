@@ -3,24 +3,39 @@ import uuidV1 from 'uuid/v1';
 
 import Fetcher from '../wrappers/Fetcher';
 
-export const getTasks = (board_id) => dispatch => {
-  return new Promise((resolve) => {
-    Fetcher(`/boards/${board_id}/tasks`, {
-      headers: {
-        'Content-Type': 'application/json',
-      },
+export const getTasks = () => dispatch => {
+  Fetcher(`/boards/tasks`, {
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  })
+    .then((res) => {
+      dispatch({
+        type: 'GET_TASKS',
+        tasks: res.tasks,
+      });
     })
-      .then((res) => {
-        dispatch({
-          type: 'GET_TASKS',
-          tasks: res.tasks,
-        });
-        resolve(res.tasks);
-      })
-      .catch((err) => {
-        alertify.alert(err.message)
-      })
-  });
+    .catch((err) => {
+      alertify.alert(err.message)
+    });
+}
+
+export const getBoardTasks = (_id) => dispatch => {
+  Fetcher(`/boards/${_id}/tasks`, {
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  })
+    .then((res) => {
+      dispatch({
+        type: 'GET_BOARD_TASKS',
+        board_id: _id,
+        tasks: res.tasks,
+      });
+    })
+    .catch((err) => {
+      alertify.alert(err.message)
+    });
 }
 
 export const createTask = (task, token) => dispatch => {
@@ -38,7 +53,7 @@ export const createTask = (task, token) => dispatch => {
     body: JSON.stringify(task),
   })
     .then((res) => {
-      dispatch(getTasks(task.board));
+      dispatch(getBoardTasks(task.board))
     })
     .catch((err) => {
       alertify.alert(err.message)
@@ -60,9 +75,6 @@ export const updateTask = ({ task_id, board_id, update }, token) => dispatch => 
     },
     body: JSON.stringify(update),
   })
-    .then((res) => {
-      console.log(res);
-    })
     .catch((err) => {
       alertify.alert(err.message)
     });
@@ -81,9 +93,6 @@ export const deleteTask = ({ board_id, task_id }, token) => dispatch => {
       'Authorization': `Bearer ${token}`,
     },
   })
-    .then((res) => {
-      console.log(res);
-    })
     .catch((err) => {
       alertify.alert(err.message)
     });
@@ -103,9 +112,6 @@ export const updateTaskStatus = ({ board_id, task_id, status }, token) => dispat
       'Authorization': `Bearer ${token}`,
     },
   })
-    .then((res) => {
-
-    })
     .catch((err) => {
       alertify.alert(err.message)
     });
