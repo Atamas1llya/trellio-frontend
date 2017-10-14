@@ -1,7 +1,8 @@
 import React from 'react';
 import InlineEdit from 'react-edit-inline';
+import { Link } from 'react-router';
 
-export default ({ title, authorized, completed, ...actions }) => {
+export default ({ _id, title, authorized, completed, ...actions }) => {
   const editableTitle = (
     <InlineEdit
       activeClassName="inline-input"
@@ -15,7 +16,9 @@ export default ({ title, authorized, completed, ...actions }) => {
     if (completed) {
       return (
         <div className="task completed fadeIn animated">
-          <span className="title">{ editableTitle }</span>
+          <span className="title">
+            { editableTitle }
+          </span>
           <span className="actions">
             <i
               className="material-icons icon-renew"
@@ -25,13 +28,18 @@ export default ({ title, authorized, completed, ...actions }) => {
               className="material-icons icon-delete"
               onClick={actions.deleteTask}
             >close</i>
+            <Link to={`/boards/tasks/${_id}`}>
+              <i className="material-icons icon-link">open_in_new</i>
+            </Link>
           </span>
         </div>
       );
     } else {
       return (
         <div className="task fadeIn animated">
-          <span className="title">{ editableTitle }</span>
+          <span className="title">
+            { editableTitle }
+          </span>
           <span className="actions">
             <i
               className="material-icons icon-done"
@@ -41,6 +49,9 @@ export default ({ title, authorized, completed, ...actions }) => {
               className="material-icons icon-delete"
               onClick={actions.deleteTask}
             >close</i>
+            <Link to={`/boards/tasks/${_id}`}>
+              <i className="material-icons icon-link">open_in_new</i>
+            </Link>
           </span>
         </div>
       );

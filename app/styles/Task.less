@@ -12,24 +12,33 @@
   justify-content: space-between;
   align-items: center;
 
+
   .title {
     cursor: pointer;
-
-    // &:hover {
-    //   color: #16A085;
-    //   transition: 0.2s;
-    // }
   }
 
   .actions {
     // height: 100%;
     display: none;
+
+    > a {
+      display: none;
+      align-items: center;
+      color: inherit;
+
+      margin: 0 5px;
+      padding: 0;
+    }
   }
 
   &:hover {
     .actions {
       display: flex;
       align-items: center;
+
+      > a {
+        display: flex;
+      }
     }
   }
 }
@@ -38,7 +47,9 @@
   background: #ECF0F1;
   .title {
     opacity: 0.5;
-    text-decoration: line-through;
+    span {
+      text-decoration: line-through;
+    }
   }
 }
 

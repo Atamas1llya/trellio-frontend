@@ -36,6 +36,7 @@ class Boards extends Component {
             />
           }
         </BoardsComponent>
+        {this.props.children}
       </div>
     );
   }
