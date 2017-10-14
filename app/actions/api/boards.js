@@ -67,9 +67,6 @@ export const updateBoard = ({ _id, update }, token) => dispatch => {
     },
     body: JSON.stringify(update),
   }, dispatch)
-    .then((res) => {
-      console.log(res);
-    })
     .catch((err) => {
       console.error(err);
       alertify.alert(err.message)
@@ -77,6 +74,10 @@ export const updateBoard = ({ _id, update }, token) => dispatch => {
 }
 
 export const deleteBoard = (_id, token) => dispatch => {
+  dispatch({
+    type: 'DELETE_BOARD',
+    _id,
+  });
   Fetcher(`/boards/${_id}`, {
     method: 'DELETE',
     headers: {
@@ -84,12 +85,6 @@ export const deleteBoard = (_id, token) => dispatch => {
       'Authorization': `Bearer ${token}`,
     },
   }, dispatch)
-    .then((res) => {
-      dispatch({
-        type: 'DELETE_BOARD',
-        _id,
-      });
-    })
     .catch((err) => {
       console.error(err);
       alertify.alert(err.message)
