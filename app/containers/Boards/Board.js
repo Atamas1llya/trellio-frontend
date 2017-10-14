@@ -30,6 +30,7 @@ class Board extends Component {
     const { token, board } = this.props;
     const task = {
       title: "New task",
+      description: "New task description",
       board: board._id,
     }
 
