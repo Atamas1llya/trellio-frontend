@@ -11,6 +11,14 @@ export default (state = initialState, action) => {
         action.task,
       ];
     }
+    case 'UPDATE_TASK': {
+      return state.map((task) => {
+        if (task._id === action._id) {
+          return Object.assign({}, task, action.update);
+        }
+        return task;
+      })
+    }
     case 'UPDATE_TASK_STATUS': {
       return state.map((task) => {
         if (task._id === action._id) {
@@ -18,7 +26,7 @@ export default (state = initialState, action) => {
             status: action.status,
           })
         }
-        return task
+        return task;
       })
     }
     case 'DELETE_TASK': {

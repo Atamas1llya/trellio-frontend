@@ -45,6 +45,29 @@ export const createTask = (task, token) => dispatch => {
     });
 }
 
+export const updateTask = ({ task_id, board_id, update }, token) => dispatch => {
+  dispatch({
+    type: 'UPDATE_TASK',
+    _id: task_id,
+    update,
+  });
+
+  Fetcher(`/boards/${board_id}/tasks/${task_id}`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`,
+    },
+    body: JSON.stringify(update),
+  })
+    .then((res) => {
+      console.log(res);
+    })
+    .catch((err) => {
+      alertify.alert(err.message)
+    });
+}
+
 export const deleteTask = ({ board_id, task_id }, token) => dispatch => {
   dispatch({
     type: 'DELETE_TASK',

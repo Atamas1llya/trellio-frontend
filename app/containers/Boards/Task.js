@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import alertify from 'alertify.js';
 
-import { updateTaskStatus, deleteTask } from '../../actions/api/tasks';
+import { updateTask, updateTaskStatus, deleteTask } from '../../actions/api/tasks';
 
 import TaskComponent from '../../components/Boards/tasks/Task';
 
@@ -24,6 +24,18 @@ class Task extends Component {
     })
   }
 
+  updateTask(update) {
+    const { token } = this.props;
+    const { task, board_id } = this.props;
+
+    this.props.updateTask({
+      board_id,
+      task_id: task._id,
+      update,
+    }, token);
+  }
+
+
   render() {
     const { task } = this.props;
 
@@ -31,6 +43,7 @@ class Task extends Component {
       <TaskComponent
         completed={task.status === 'complete'}
         authorized={!!this.props.token}
+        updateTitle={(e) => this.updateTask(e)}
         completeTask={() => this.updateStatus('complete')}
         activateTask={() => this.updateStatus('active')}
         deleteTask={() => this.deleteTask()}
@@ -45,6 +58,7 @@ const mapState = ({ token }) => ({
 });
 
 const mapDispatch = dispatch => ({
+  updateTask: (data, token) => dispatch(updateTask(data, token)),
   updateTaskStatus: (data, token) => dispatch(updateTaskStatus(data, token)),
   deleteTask: (task, token) => dispatch(deleteTask(task, token)),
 });

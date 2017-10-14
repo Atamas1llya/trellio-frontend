@@ -53,6 +53,12 @@ export const createBoard = (board, token) => dispatch => {
 }
 
 export const updateBoard = ({ _id, update }, token) => dispatch => {
+  dispatch({
+    type: 'UPDATE_BOARD',
+    _id,
+    update,
+  });
+
   Fetcher(`/boards/${_id}`, {
     method: 'PUT',
     headers: {
@@ -62,11 +68,7 @@ export const updateBoard = ({ _id, update }, token) => dispatch => {
     body: JSON.stringify(update),
   }, dispatch)
     .then((res) => {
-      dispatch({
-        type: 'UPDATE_BOARD',
-        _id,
-        update,
-      });
+      console.log(res);
     })
     .catch((err) => {
       console.error(err);

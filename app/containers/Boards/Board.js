@@ -10,30 +10,13 @@ import { updateBoard, deleteBoard } from '../../actions/api/boards';
 import { createTask } from '../../actions/api/tasks';
 
 class Board extends Component {
-  state = {
-    saveTitleTimeout: false,
-  }
-
-  updateBoardTitle({ title }) {
+  updateBoard(update) {
     const { board, token } = this.props;
-    let { saveTitleTimeout } = this.state;
 
-
-    clearTimeout(saveTitleTimeout);
-
-    this.props.updateBoardLocally({ // User will not wait
+    this.props.updateBoard({
       _id: board._id,
-      update: { title },
-    });
-
-    saveTitleTimeout = setTimeout(() => { // Data saved
-      this.props.updateBoard({
-        _id: board._id,
-        update: { title },
-      }, token);
-    }, 300);
-
-    this.setState({ saveTitleTimeout }); // Profit. Little wierd profit
+      update,
+    }, token);
   }
 
   deleteBoard() {
@@ -58,7 +41,7 @@ class Board extends Component {
     return (
       <BoardComponent
         title={board.title}
-        updateTitle={e => this.updateBoardTitle(e)}
+        updateTitle={e => this.updateBoard(e)}
         deleteBoard={() => this.deleteBoard()}
       >
         {
@@ -90,7 +73,6 @@ const mapState = ({ token, tasks }, { board }) => ({
 
 const mapDispatch = dispatch => ({
   updateBoard: (params, token) => dispatch(updateBoard(params, token)),
-  updateBoardLocally: ({ _id, update }) => dispatch({ type: 'UPDATE_BOARD', _id, update }),
   deleteBoard: (_id, token) => dispatch(deleteBoard(_id, token)),
   createTask: (task, token) => dispatch(createTask(task, token)),
 });
