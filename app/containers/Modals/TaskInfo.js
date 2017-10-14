@@ -2,8 +2,11 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
 
+import secure from '../../decorators/secure';
+
 import TaskInfoComponent from '../../components/Modals/TaskInfo';
 
+@secure
 class TaskInfo extends Component {
   render() {
     return (

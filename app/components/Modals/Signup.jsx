@@ -7,7 +7,7 @@ const SignupModal = ({ onHide, onSubmit }) => {
   return (
     <Modal show={true} onHide={onHide}>
       <form onSubmit={onSubmit}>
-        <Modal.Header>
+        <Modal.Header closeButton>
           <Modal.Title>
             <span className="brand">Trellio Signup</span>
           </Modal.Title>

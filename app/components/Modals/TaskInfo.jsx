@@ -5,7 +5,7 @@ import { Modal } from 'react-bootstrap';
 const SignupModal = ({ onHide }) => {
   return (
     <Modal show={true} onHide={onHide}>
-      <Modal.Header>
+      <Modal.Header closeButton>
         <Modal.Title>
           <span className="brand">Task</span>
         </Modal.Title>
