@@ -2,7 +2,7 @@ import React from 'react';
 import InlineEdit from 'react-edit-inline';
 import { Link } from 'react-router';
 
-export default ({ _id, title, authorized, completed, ...actions }) => {
+export default ({ _id, title, authorized, completed, attachments = [], dueDate, ...actions }) => {
   const editableTitle = (
     <InlineEdit
       activeClassName="inline-input"
@@ -17,7 +17,13 @@ export default ({ _id, title, authorized, completed, ...actions }) => {
       return (
         <div className="task completed fadeIn animated">
           <span className="title">
-            { editableTitle }
+            <span className="title-text">
+              { editableTitle }
+            </span>
+            <span className="task-state-pics">
+              { attachments.length > 0 && <i className="material-icons task-state-pic">image</i> }
+              { dueDate && <i className="material-icons task-state-pic">timer</i> }
+            </span>
           </span>
           <span className="actions">
             <i
@@ -38,7 +44,13 @@ export default ({ _id, title, authorized, completed, ...actions }) => {
       return (
         <div className="task fadeIn animated">
           <span className="title">
-            { editableTitle }
+            <span className="title-text">
+              { editableTitle }
+            </span>
+            <span className="task-state-pics">
+              { attachments.length > 0 && <i className="material-icons task-state-pic">image</i> }
+              { dueDate && <i className="material-icons task-state-pic">timer</i> }
+            </span>
           </span>
           <span className="actions">
             <i
@@ -59,7 +71,11 @@ export default ({ _id, title, authorized, completed, ...actions }) => {
   } else {
     return (
       <div className="task fadeIn animated">
-        <span className="title">{ title }</span>
+        <span className="title">
+          <span className="title-text">
+            { title }
+          </span>
+        </span>
       </div>
     );
   }

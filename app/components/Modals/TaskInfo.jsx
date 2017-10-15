@@ -15,6 +15,7 @@ const SignupModal = ({ task = { creator: false }, uploading, ...actions }) => {
         <Modal.Title>
           <TaskTitle
             title={task.title}
+            status={task.status}
             updateTitle={e => actions.updateTask(e)}
           />
         </Modal.Title>
@@ -24,6 +25,7 @@ const SignupModal = ({ task = { creator: false }, uploading, ...actions }) => {
         <div className="task-info">
           <TaskDescription
             description={task.description}
+            status={task.status}
             updateDescription={e => actions.updateTask(e)}
           />
           <div>
@@ -48,22 +50,24 @@ const SignupModal = ({ task = { creator: false }, uploading, ...actions }) => {
   );
 };
 
-const TaskTitle = ({ title, updateTitle }) => (
+const TaskTitle = ({ title, status, updateTitle }) => (
   <span className="brand">
     <InlineEdit
       activeClassName="inline-input"
       text={title || 'New task'}
       paramName="title"
+      className={status === 'complete' ? 'task-info-title completed' : null }
       change={e => updateTitle(e)}
     />
   </span>
 );
 
-const TaskDescription = ({ description, updateDescription }) => (
+const TaskDescription = ({ description, status, updateDescription }) => (
   <InlineEdit
     activeClassName="inline-input"
     text={description || 'Description is not provided...'}
     paramName="description"
+    className={status === 'complete' ? 'task-info-description completed' : null }
     change={e => updateDescription(e)}
   />
 );

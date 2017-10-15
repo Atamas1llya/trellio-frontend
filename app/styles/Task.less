@@ -15,6 +15,34 @@
 
   .title {
     cursor: pointer;
+
+    display: block;
+    max-width: 70%;
+    white-space: nowrap;
+    overflow: hidden;
+
+    input {
+      max-width: 70%;
+    }
+
+    display: flex;
+    flex-direction: row;
+  }
+
+  .task-state-pics {
+    display: none;
+    align-items: center;
+    opacity: 0.15;
+
+    .task-state-pic {
+      margin: 0 0 0 5px;
+    }
+  }
+
+  &:hover {
+    .task-state-pics {
+      display: flex;
+    }
   }
 
   .actions {
@@ -47,7 +75,7 @@
   background: #ECF0F1;
   .title {
     opacity: 0.5;
-    span {
+    span.title-text {
       text-decoration: line-through;
     }
   }
