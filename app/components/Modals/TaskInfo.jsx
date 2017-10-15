@@ -26,8 +26,10 @@ const SignupModal = ({ task = { creator: false }, uploading, ...actions }) => {
             description={task.description}
             updateDescription={e => actions.updateTask(e)}
           />
-          <DueDate dueDate={task.dueDate} />
-          <span className="task-creator">Created by { task.creator.name }</span>
+          <div>
+            <DueDate dueDate={task.dueDate} />
+            <span className="task-creator">Created by { task.creator.name }</span>
+          </div>
         </div>
       </Modal.Body>
       <Modal.Footer>
@@ -67,9 +69,21 @@ const TaskDescription = ({ description, updateDescription }) => (
 );
 
 const DueDate = ({ dueDate }) => {
+  const momentConfig = {
+    lastDay : '[Yesterday]',
+    sameDay : '[Today]',
+    nextDay : '[Tomorrow]',
+    lastWeek : '[last] dddd',
+    nextWeek : 'dddd',
+    sameElse : 'L'
+  }
+
   if (dueDate) {
     return (
-      <span className="task-expires">Expiration date: { moment(dueDate).calendar() }</span>
+      <span className="task-expires">
+        Due date:
+        <span className="date"> { moment(dueDate).calendar(null, momentConfig) }</span>
+      </span>
     );
   }
   return null;
@@ -107,7 +121,7 @@ const Actions = ({ onImageUpload, uploading, actions, task }) => (
         disabled={uploading}
       />
       <Flatpickr
-        onChange={dueDate => actions.updateTask({ dueDate: new Date(dueDate) })}
+        onChange={dueDate => actions.updateTask({ dueDate: new Date(dueDate).getTime() })}
         id="task-add-dueDate"
         // className="hidden"
       />

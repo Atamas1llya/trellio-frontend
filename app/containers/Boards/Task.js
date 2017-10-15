@@ -48,7 +48,6 @@ class Task extends Component {
   render() {
     const { task } = this.props;
 
-    console.log(task);
     return (
       <TaskComponent
         completed={task.status === 'complete'}

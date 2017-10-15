@@ -2,9 +2,28 @@
   display: flex;
   flex-direction: column;
 
-  .task-expires, .task-creator {
-    font-size: 16px;
-    color: #7F8C8D;
+  > div {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+
+    .task-creator {
+      font-size: 14px;
+      color: #7F8C8D;
+      font-style: italic;
+    }
+
+    .task-expires {
+      font-size: 16px;
+      font-style: italic;
+      .date {
+        color: #2C3E50;
+        font-weight: bold;
+      }
+    }
+
   }
 }
 

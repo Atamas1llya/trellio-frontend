@@ -88,6 +88,8 @@ class TaskInfo extends Component {
   }
 
   render() {
+    console.log(this.props.task);
+    
     return (
       <TaskInfoComponent
         task={this.props.task}
