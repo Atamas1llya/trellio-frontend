@@ -3,7 +3,7 @@ import moment from 'moment';
 
 import InlineEdit from 'react-edit-inline';
 
-import { Modal, Well } from 'react-bootstrap';
+import { Modal, Well, Image } from 'react-bootstrap';
 
 const SignupModal = ({ task = false, ...actions }) => {
   return (
@@ -66,37 +66,46 @@ const DueDate = ({ dueDate }) => {
 };
 
 const Attachments = ({ attachments = [], onImageUpload }) => {
-  if (attachments.length > 0) {
-    return (
-      <div>
-        <Well bsSize="small">
-          {/* Attachments here */}
-        </Well>
+  return (
+    <div>
+      <div className="task-images-list">
+        {
+          attachments.map((url, index) => {
+            return (
+              <Well className="task-image" bsSize="small" key={index}>
+                <Image src={url} responsive />
+              </Well>
+            );
+          })
+        }
       </div>
-    )
-  } else {
-    return (
-      <div className="task-info-actions">
-        <div>
-          <input
-            type="file"
-            id="task-image-upload"
-            className="hidden"
-            accept="image/*"
-            onChange={onImageUpload}
-          />
-          <label htmlFor="task-image-upload">
-            <i className="material-icons icon-renew">image</i>
-          </label>
-        </div>
-        <div>
-          <i className="material-icons icon-done">done</i>
-          <i className="material-icons icon-delete">close</i>
-          <i className="material-icons icon-delete">delete</i>
-        </div>
-      </div>
-    )
-  }
+      <Actions
+        onImageUpload={onImageUpload}
+      />
+    </div>
+  )
 }
+
+const Actions = ({ onImageUpload }) => (
+  <div className="task-info-actions">
+    <div>
+      <input
+        type="file"
+        id="task-image-upload"
+        className="hidden"
+        accept="image/*"
+        onChange={onImageUpload}
+      />
+      <label htmlFor="task-image-upload">
+        <i className="material-icons icon-renew">image</i>
+      </label>
+    </div>
+    <div>
+      <i className="material-icons icon-done">done</i>
+      <i className="material-icons icon-delete">close</i>
+      <i className="material-icons icon-delete">delete</i>
+    </div>
+  </div>
+)
 
 export default SignupModal;
