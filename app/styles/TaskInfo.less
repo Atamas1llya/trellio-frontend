@@ -7,3 +7,36 @@
     color: #7F8C8D;
   }
 }
+
+.task-info-actions {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+
+  div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    cursor: pointer;
+
+    label {
+      height: 24px;
+      margin: 0;
+    }
+
+    &:nth-child(1) {
+      > i {
+        margin: 0 10px 0 0;
+      }
+    }
+
+    &:nth-child(2) {
+      > i {
+        margin: 0 0 0 10px;
+      }
+    }
+
+  }
+}

@@ -3,7 +3,7 @@ import moment from 'moment';
 
 import InlineEdit from 'react-edit-inline';
 
-import { Modal } from 'react-bootstrap';
+import { Modal, Well } from 'react-bootstrap';
 
 const SignupModal = ({ task = false, ...actions }) => {
   return (
@@ -27,7 +27,10 @@ const SignupModal = ({ task = false, ...actions }) => {
         </div>
       </Modal.Body>
       <Modal.Footer>
-
+        <Attachments
+          attachments={task.attachments}
+          onImageUpload={actions.onImageUpload}
+        />
       </Modal.Footer>
     </Modal>
   );
@@ -43,6 +46,7 @@ const TaskTitle = ({ title, updateTitle }) => (
     />
   </span>
 );
+
 const TaskDescription = ({ description, updateDescription }) => (
   <InlineEdit
     activeClassName="inline-input"
@@ -60,5 +64,39 @@ const DueDate = ({ dueDate }) => {
   }
   return null;
 };
+
+const Attachments = ({ attachments = [], onImageUpload }) => {
+  if (attachments.length > 0) {
+    return (
+      <div>
+        <Well bsSize="small">
+          {/* Attachments here */}
+        </Well>
+      </div>
+    )
+  } else {
+    return (
+      <div className="task-info-actions">
+        <div>
+          <input
+            type="file"
+            id="task-image-upload"
+            className="hidden"
+            accept="image/*"
+            onChange={onImageUpload}
+          />
+          <label htmlFor="task-image-upload">
+            <i className="material-icons icon-renew">image</i>
+          </label>
+        </div>
+        <div>
+          <i className="material-icons icon-done">done</i>
+          <i className="material-icons icon-delete">close</i>
+          <i className="material-icons icon-delete">delete</i>
+        </div>
+      </div>
+    )
+  }
+}
 
 export default SignupModal;

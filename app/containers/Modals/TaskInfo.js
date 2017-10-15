@@ -19,12 +19,30 @@ class TaskInfo extends Component {
       update,
     }, token);
   }
+
+  uploadImage(e) {
+    const image = e.target.files[0];
+    const reader = new FileReader();
+    reader.readAsDataURL(image);
+
+    reader.onload = (e) => {
+      const { result } = e.target;
+      const upload = {
+        data: result,
+        type: image.type,
+      }
+
+      console.log(upload.type);
+    }
+  }
+
   render() {
     return (
       <TaskInfoComponent
         task={this.props.task}
         onHide={() => this.props.redirect('/boards')}
         updateTask={e => this.updateTask(e)}
+        onImageUpload={e => this.uploadImage(e)}
       />
     );
   }
