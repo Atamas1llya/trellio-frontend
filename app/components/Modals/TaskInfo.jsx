@@ -1,11 +1,14 @@
 import React from 'react';
-import moment from 'moment';
 
+import moment from 'moment';
 import InlineEdit from 'react-edit-inline';
+
+import Flatpickr from 'react-flatpickr'
+import 'flatpickr/dist/themes/dark.css';
 
 import { Modal, Well, Image } from 'react-bootstrap';
 
-const SignupModal = ({ task = false, uploading, ...actions }) => {
+const SignupModal = ({ task = { creator: false }, uploading, ...actions }) => {
   return (
     <Modal show={true} onHide={actions.onHide}>
       <Modal.Header closeButton>
@@ -23,7 +26,8 @@ const SignupModal = ({ task = false, uploading, ...actions }) => {
             description={task.description}
             updateDescription={e => actions.updateTask(e)}
           />
-          <DueDate dueDate={Date.now()} />
+          <DueDate dueDate={task.dueDate} />
+          <span className="task-creator">Created by { task.creator.name }</span>
         </div>
       </Modal.Body>
       <Modal.Footer>
@@ -102,10 +106,19 @@ const Actions = ({ onImageUpload, uploading, actions, task }) => (
         onChange={onImageUpload}
         disabled={uploading}
       />
+      <Flatpickr
+        onChange={dueDate => actions.updateTask({ dueDate: new Date(dueDate) })}
+        id="task-add-dueDate"
+        // className="hidden"
+      />
+      <input type="date" id="task-add-due-date" className="hidden" />
       <label htmlFor="task-image-upload">
         <i className="material-icons icon-renew">image</i>
       </label>
       { uploading && <i className="material-icons icon-uploading bouncing">cloud_upload</i> }
+      <label htmlFor="task-add-dueDate">
+        <i className="material-icons icon-renew" onClick={actions.addDueDate}>alarm_add</i>
+      </label>
     </div>
     <div>
       {

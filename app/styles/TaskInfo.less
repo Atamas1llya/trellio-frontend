@@ -2,7 +2,7 @@
   display: flex;
   flex-direction: column;
 
-  .task-expires {
+  .task-expires, .task-creator {
     font-size: 16px;
     color: #7F8C8D;
   }
@@ -47,4 +47,11 @@
   flex-wrap: wrap;
   align-items: center;
   justify-content: flex-start;
+}
+
+.flatpickr-input { // tricky
+  width: 0;
+  height: 0;
+  border: 0;
+  opacity: 0;
 }
