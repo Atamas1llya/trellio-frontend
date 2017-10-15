@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import alertify from 'alertify.js';
-import { SortableContainer } from 'react-sortable-hoc';
 
 import BoardComponent from '../../components/Boards/Board';
 import Task from './Task';
@@ -9,25 +8,6 @@ import CreateTask from '../../components/Boards/tasks/CreateTask';
 
 import { updateBoard, deleteBoard } from '../../actions/api/boards';
 import { createTask, updateTask } from '../../actions/api/tasks';
-
-const SortableList = SortableContainer(({ tasks, board }) => {
-  return (
-    <div>
-      {
-        tasks.map((task, index) => {
-          return (
-            <Task
-              task={task}
-              key={index}
-              index={index}
-              board_id={board._id}
-            />
-          )
-        })
-      }
-    </div>
-  );
-});
 
 class Board extends Component {
   updateBoard(update) {
@@ -61,10 +41,6 @@ class Board extends Component {
     this.props.createTask(task, token);
   }
 
-  onSortEnd({ oldIndex, newIndex }) {
-    // TODO: Tasks reorder
-  };
-
   render() {
     const { token, board, tasks } = this.props;
 
@@ -74,11 +50,18 @@ class Board extends Component {
         updateTitle={e => this.updateBoard(e)}
         deleteBoard={() => this.deleteBoard()}
       >
-        <SortableList
-          tasks={tasks}
-          board={board}
-          onSortEnd={e => this.onSortEnd(e)}
-        />
+        {
+          tasks.map((task, index) => {
+            return (
+              <Task
+                task={task}
+                key={index}
+                index={index}
+                board_id={board._id}
+              />
+            )
+          })
+        }
         {
           token &&
           <CreateTask
