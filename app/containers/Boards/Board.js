@@ -40,10 +40,14 @@ class Board extends Component {
   }
 
   deleteBoard() {
-    const { board, token } = this.props;
-    alertify.confirm('Are you sure?', () => {
-      this.props.deleteBoard(board._id, token)
-    })
+    const { board, tasks, token } = this.props;
+    if (tasks.length > 0) {
+      alertify.confirm('Board tasks will be removed. Are you sure?', () => {
+        this.props.deleteBoard(board._id, token)
+      });
+    } else {
+      this.props.deleteBoard(board._id, token);
+    }
   }
 
   createEmptyTask() {
