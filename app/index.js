@@ -25,6 +25,7 @@ ReactDOM.render(
   <Provider store={store}>
     <Router history={history}>
       <Router path="/" component={App}>
+        <IndexRedirect to="/boards" />
         <Route path="/boards" component={Boards}>
           <Route path="/boards/tasks/:_id" component={TaskInfo} />
         </Route>
