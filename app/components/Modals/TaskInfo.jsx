@@ -5,7 +5,7 @@ import InlineEdit from 'react-edit-inline';
 
 import { Modal, Well, Image } from 'react-bootstrap';
 
-const SignupModal = ({ task = false, ...actions }) => {
+const SignupModal = ({ task = false, uploading, ...actions }) => {
   return (
     <Modal show={true} onHide={actions.onHide}>
       <Modal.Header closeButton>
@@ -30,6 +30,7 @@ const SignupModal = ({ task = false, ...actions }) => {
         <Attachments
           attachments={task.attachments}
           onImageUpload={actions.onImageUpload}
+          uploading={uploading}
         />
       </Modal.Footer>
     </Modal>
@@ -65,7 +66,7 @@ const DueDate = ({ dueDate }) => {
   return null;
 };
 
-const Attachments = ({ attachments = [], onImageUpload }) => {
+const Attachments = ({ attachments = [], uploading, onImageUpload }) => {
   return (
     <div>
       <div className="task-images-list">
@@ -73,7 +74,9 @@ const Attachments = ({ attachments = [], onImageUpload }) => {
           attachments.map((url, index) => {
             return (
               <Well className="task-image" bsSize="small" key={index}>
-                <Image src={url} responsive />
+                <a href={url} target="_blank">
+                  <Image src={url} responsive />
+                </a>
               </Well>
             );
           })
@@ -81,12 +84,13 @@ const Attachments = ({ attachments = [], onImageUpload }) => {
       </div>
       <Actions
         onImageUpload={onImageUpload}
+        uploading={uploading}
       />
     </div>
   )
 }
 
-const Actions = ({ onImageUpload }) => (
+const Actions = ({ onImageUpload, uploading }) => (
   <div className="task-info-actions">
     <div>
       <input
@@ -95,10 +99,12 @@ const Actions = ({ onImageUpload }) => (
         className="hidden"
         accept="image/*"
         onChange={onImageUpload}
+        disabled={uploading}
       />
       <label htmlFor="task-image-upload">
         <i className="material-icons icon-renew">image</i>
       </label>
+      { uploading && <i className="material-icons icon-uploading spinning">cloud_upload</i> }
     </div>
     <div>
       <i className="material-icons icon-done">done</i>

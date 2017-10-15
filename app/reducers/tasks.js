@@ -25,6 +25,20 @@ export default (state = initialState, action) => {
         return task;
       })
     }
+    case 'ATTACH_TASK_IMAGE': {
+      return state.map((task) => {
+        if (task._id === action._id) {
+          return {
+            ...task,
+            attachments: [
+              ...task.attachments,
+              action.url,
+            ]
+          }
+        }
+        return task;
+      })
+    }
     case 'UPDATE_TASK_STATUS': {
       return state.map((task) => {
         if (task._id === action._id) {

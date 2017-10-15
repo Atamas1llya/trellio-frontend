@@ -10,6 +10,10 @@ import { updateTask, attachImage } from '../../actions/api/tasks';
 
 @secure
 class TaskInfo extends Component {
+  state = {
+    uploading: false,
+  }
+
   updateTask(update) {
     const { token, task } = this.props;
 
@@ -32,11 +36,25 @@ class TaskInfo extends Component {
         type: image.type,
       }
 
+      this.setState({
+        uploading: true,
+      })
+
       const { token } = this.props;
       this.props.attachImage({
         board_id: this.props.task.board,
         task_id: this.props.task._id,
       }, upload, token)
+        .then(() => {
+          this.setState({
+            uploading: false,
+          })
+        })
+        .catch((err) => {
+          this.setState({
+            uploading: false,
+          })
+        })
 
     }
   }
@@ -48,6 +66,7 @@ class TaskInfo extends Component {
         onHide={() => this.props.redirect('/boards')}
         updateTask={e => this.updateTask(e)}
         onImageUpload={e => this.uploadImage(e)}
+        uploading={this.state.uploading}
       />
     );
   }

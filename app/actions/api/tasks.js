@@ -81,20 +81,28 @@ export const updateTask = ({ task_id, board_id, update }, token) => dispatch => 
 }
 
 export const attachImage = ({ board_id, task_id }, upload, token) => dispatch => {
-  Fetcher(`/boards/${board_id}/tasks/${task_id}/attachment`, {
-    method: 'PUT',
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${token}`,
-    },
-    body: JSON.stringify(upload),
-  })
-    .then((res) => {
-      console.log(res);
+  return new Promise((resolve, reject) => {
+    Fetcher(`/boards/${board_id}/tasks/${task_id}/attachment`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`,
+      },
+      body: JSON.stringify(upload),
     })
-    .catch((err) => {
-      alertify.alert(err.message)
-    });
+      .then((res) => {
+        dispatch({
+          type: 'ATTACH_TASK_IMAGE',
+          _id: task_id,
+          url: res.url,
+        });
+        resolve();
+      })
+      .catch((err) => {
+        alertify.alert(err.message);
+        reject(err.message);
+      });
+  });
 }
 
 export const deleteTask = ({ board_id, task_id }, token) => dispatch => {

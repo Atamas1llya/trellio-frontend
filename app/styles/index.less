@@ -61,6 +61,29 @@ i.material-icons {
   }
 }
 
+.icon-uploading {
+  opacity: 0.8;
+}
+
+.spinning {
+  animation: 1s spinning infinite;
+}
+
+@keyframes spinning {
+  0% {
+    transform: translateY(0px);
+  }
+  25% {
+    transform: translateY(2px);
+  }
+  50% {
+    transform: translateY(0px);
+  }
+  75% {
+    transform: translateY(-2px);
+  }
+}
+
 @import "./reset";
 @import "./Header";
 @import "./Boards";
