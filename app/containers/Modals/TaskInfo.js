@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
+import alertify from 'alertify.js';
 
 import secure from '../../decorators/secure';
 
 import TaskInfoComponent from '../../components/Modals/TaskInfo';
 
-import { updateTask, attachImage } from '../../actions/api/tasks';
+import { updateTask, updateTaskStatus, deleteTask, attachImage } from '../../actions/api/tasks';
 
 @secure
 class TaskInfo extends Component {
@@ -22,6 +23,34 @@ class TaskInfo extends Component {
       board_id: task.board,
       update,
     }, token);
+  }
+
+  updateStatus(status) {
+    this.props.updateTaskStatus({
+      board_id: this.props.task.board,
+      task_id: this.props.task._id,
+      status,
+    }, this.props.token);
+  }
+
+  deleteTask() {
+    const { task } = this.props;
+
+    if (task.attachments.length > 0) {
+      alertify.confirm('Attached images will be lost. Are you sure?', () => {
+        this.props.deleteTask({
+          board_id: this.props.task.board,
+          task_id: this.props.task._id,
+        }, this.props.token);
+        this.props.redirect('/boards');
+      });
+    } else {
+      this.props.deleteTask({
+        board_id: this.props.task.board,
+        task_id: this.props.task._id,
+      }, this.props.token);
+      this.props.redirect('/boards');
+    }
   }
 
   uploadImage(e) {
@@ -55,7 +84,6 @@ class TaskInfo extends Component {
             uploading: false,
           })
         })
-
     }
   }
 
@@ -67,6 +95,9 @@ class TaskInfo extends Component {
         updateTask={e => this.updateTask(e)}
         onImageUpload={e => this.uploadImage(e)}
         uploading={this.state.uploading}
+        completeTask={() => this.updateStatus('complete')}
+        activateTask={() => this.updateStatus('active')}
+        deleteTask={() => this.deleteTask()}
       />
     );
   }
@@ -81,6 +112,8 @@ const mapDispatch = dispatch => ({
   redirect: url => dispatch(push(url)),
   updateTask: (update, token) => dispatch(updateTask(update, token)),
   attachImage: (taskInfo, upload, token) => dispatch(attachImage(taskInfo, upload, token)),
+  updateTaskStatus: (data, token) => dispatch(updateTaskStatus(data, token)),
+  deleteTask: (task, token) => dispatch(deleteTask(task, token)),
 });
 
 export default connect(mapState, mapDispatch)(TaskInfo);

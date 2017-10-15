@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { SortableElement } from 'react-sortable-hoc';
+import alertify from 'alertify.js';
 
 import { updateTask, updateTaskStatus, deleteTask } from '../../actions/api/tasks';
 
@@ -20,10 +21,20 @@ class Task extends Component {
   }
 
   deleteTask() {
-    this.props.deleteTask({
-      board_id: this.props.board_id,
-      task_id: this.props.task._id,
-    }, this.props.token);
+    const { task } = this.props;
+    if (task.attachments.length > 0) {
+      alertify.confirm('Attached images will be lost. Are you sure?', () => {
+        this.props.deleteTask({
+          board_id: task.board,
+          task_id: task._id,
+        }, this.props.token);
+      })
+    } else {
+      this.props.deleteTask({
+        board_id: task.board,
+        task_id: task._id,
+      }, this.props.token);
+    }
   }
 
   updateTask(update) {

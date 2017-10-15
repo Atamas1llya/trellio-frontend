@@ -29,8 +29,13 @@ const SignupModal = ({ task = false, uploading, ...actions }) => {
       <Modal.Footer>
         <Attachments
           attachments={task.attachments}
+        />
+
+        <Actions
           onImageUpload={actions.onImageUpload}
           uploading={uploading}
+          actions={actions}
+          task={task}
         />
       </Modal.Footer>
     </Modal>
@@ -66,7 +71,7 @@ const DueDate = ({ dueDate }) => {
   return null;
 };
 
-const Attachments = ({ attachments = [], uploading, onImageUpload }) => {
+const Attachments = ({ attachments = [] }) => {
   return (
     <div>
       <div className="task-images-list">
@@ -82,15 +87,11 @@ const Attachments = ({ attachments = [], uploading, onImageUpload }) => {
           })
         }
       </div>
-      <Actions
-        onImageUpload={onImageUpload}
-        uploading={uploading}
-      />
     </div>
   )
 }
 
-const Actions = ({ onImageUpload, uploading }) => (
+const Actions = ({ onImageUpload, uploading, actions, task }) => (
   <div className="task-info-actions">
     <div>
       <input
@@ -104,12 +105,15 @@ const Actions = ({ onImageUpload, uploading }) => (
       <label htmlFor="task-image-upload">
         <i className="material-icons icon-renew">image</i>
       </label>
-      { uploading && <i className="material-icons icon-uploading spinning">cloud_upload</i> }
+      { uploading && <i className="material-icons icon-uploading bouncing">cloud_upload</i> }
     </div>
     <div>
-      <i className="material-icons icon-done">done</i>
-      <i className="material-icons icon-delete">close</i>
-      <i className="material-icons icon-delete">delete</i>
+      {
+        task.status === 'active'
+        ? <i className="material-icons icon-done" onClick={actions.completeTask}>done</i>
+        : <i className="material-icons icon-done" onClick={actions.activateTask}>replay</i>
+      }
+      <i className="material-icons icon-delete" onClick={actions.deleteTask}>close</i>
     </div>
   </div>
 )

@@ -65,22 +65,22 @@ i.material-icons {
   opacity: 0.8;
 }
 
-.spinning {
-  animation: 1s spinning infinite;
+.bouncing {
+  animation: 2s bounce infinite;
 }
 
-@keyframes spinning {
+@keyframes bounce {
   0% {
     transform: translateY(0px);
   }
   25% {
-    transform: translateY(2px);
+    transform: translateY(1px);
   }
   50% {
     transform: translateY(0px);
   }
   75% {
-    transform: translateY(-2px);
+    transform: translateY(-1px);
   }
 }
 
