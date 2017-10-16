@@ -4,6 +4,8 @@ import { Modal, Button } from 'react-bootstrap';
 import FieldGroup from '../FieldGroup';
 import GoogleLogin from 'react-google-login';
 
+import { googleClientId } from '../../../config';
+
 const LoginModal = ({ onHide, onSubmit, onGoogleLogin }) => {
   return (
     <Modal show={true} onHide={onHide}>
@@ -35,7 +37,7 @@ const LoginModal = ({ onHide, onSubmit, onGoogleLogin }) => {
         <Modal.Footer>
           <GoogleLogin
             className="btn btn-primary pull-left"
-            clientId="763353141797-1qh6ictabrjkt9ssj2beno80udr63gh3.apps.googleusercontent.com"
+            clientId={googleClientId}
             buttonText="Sign in with Google"
             onSuccess={e => onGoogleLogin(e)}
           />
