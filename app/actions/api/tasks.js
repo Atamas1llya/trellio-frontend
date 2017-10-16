@@ -91,12 +91,13 @@ export const moveTask = (task_id, board_to, token) => dispatch => {
     board_id: board_to,
   });
 
-  dispatch(updateTask({
+  dispatch(updateTask(
     task_id,
-    update: {
+    {
       board: board_to,
-    }
-  }, token));
+    },
+    token,
+  ));
 }
 
 export const attachImage = (_id, upload, token) => dispatch => {
