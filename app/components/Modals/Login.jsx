@@ -2,8 +2,9 @@ import React from 'react';
 
 import { Modal, Button } from 'react-bootstrap';
 import FieldGroup from '../FieldGroup';
+import GoogleLogin from 'react-google-login';
 
-const LoginModal = ({ onHide, onSubmit }) => {
+const LoginModal = ({ onHide, onSubmit, onGoogleLogin }) => {
   return (
     <Modal show={true} onHide={onHide}>
       <form onSubmit={onSubmit}>
@@ -32,6 +33,12 @@ const LoginModal = ({ onHide, onSubmit }) => {
         </Modal.Body>
 
         <Modal.Footer>
+          <GoogleLogin
+            clientId="763353141797-1qh6ictabrjkt9ssj2beno80udr63gh3.apps.googleusercontent.com"
+            buttonText="Login"
+            onSuccess={e => onGoogleLogin(e)}
+            onFailure={e => onGoogleLogin(e)}
+          />
           <Button onClick={onHide}>Close</Button>
           <Button bsStyle="inverse" type="submit">Log in</Button>
         </Modal.Footer>
