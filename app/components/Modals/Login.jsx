@@ -33,13 +33,13 @@ const LoginModal = ({ onHide, onSubmit, onGoogleLogin }) => {
         </Modal.Body>
 
         <Modal.Footer>
-          <GoogleLogin
-            clientId="763353141797-1qh6ictabrjkt9ssj2beno80udr63gh3.apps.googleusercontent.com"
-            buttonText="Login"
-            onSuccess={e => onGoogleLogin(e)}
-            onFailure={e => onGoogleLogin(e)}
-          />
           <Button onClick={onHide}>Close</Button>
+          <GoogleLogin
+            className="btn btn-primary"
+            clientId="763353141797-1qh6ictabrjkt9ssj2beno80udr63gh3.apps.googleusercontent.com"
+            buttonText="Login with Google"
+            onSuccess={e => onGoogleLogin(e)}
+          />
           <Button bsStyle="inverse" type="submit">Log in</Button>
         </Modal.Footer>
       </form>
