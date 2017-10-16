@@ -7,7 +7,7 @@ import Task from './Task';
 import CreateTask from '../../components/Boards/tasks/CreateTask';
 
 import { updateBoard, deleteBoard } from '../../actions/api/boards';
-import { createTask, updateTask, moveTask } from '../../actions/api/tasks';
+import { createTask, moveTask } from '../../actions/api/tasks';
 
 class Board extends Component {
   updateBoard(update) {
@@ -101,7 +101,6 @@ const mapDispatch = dispatch => ({
   updateBoard: (params, token) => dispatch(updateBoard(params, token)),
   deleteBoard: (_id, token) => dispatch(deleteBoard(_id, token)),
   createTask: (task, token) => dispatch(createTask(task, token)),
-  updateTask: (task, token) => dispatch(updateTask(task, token)),
   moveTask: (task_id, board_to, token) => dispatch(moveTask(task_id, board_to, token)),
 });
 

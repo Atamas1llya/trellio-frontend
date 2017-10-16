@@ -9,39 +9,25 @@ import TaskComponent from '../../components/Boards/tasks/Task';
 
 class Task extends Component {
   updateStatus(status) {
-    this.props.updateTaskStatus({
-      board_id: this.props.board_id,
-      task_id: this.props.task._id,
-      status,
-    }, this.props.token);
+    const { task, token } = this.props;
+    this.props.updateTaskStatus(task._id, status, token);
   }
 
   deleteTask() {
-    const { task } = this.props;
+    const { task, token } = this.props;
     if (task.attachments.length > 0) {
       alertify.confirm('Attached images will be lost. Are you sure?', () => {
-        this.props.deleteTask({
-          board_id: task.board,
-          task_id: task._id,
-        }, this.props.token);
-      })
+        this.props.deleteTask(task._id, token);
+      });
     } else {
-      this.props.deleteTask({
-        board_id: task.board,
-        task_id: task._id,
-      }, this.props.token);
+      this.props.deleteTask(task._id, token);
     }
   }
 
   updateTask(update) {
-    const { token } = this.props;
-    const { task, board_id } = this.props;
+    const { task, token } = this.props;
 
-    this.props.updateTask({
-      board_id,
-      task_id: task._id,
-      update,
-    }, token);
+    this.props.updateTask(task._id, update, token);
   }
 
   // drag task
@@ -75,9 +61,9 @@ const mapState = ({ token }) => ({
 });
 
 const mapDispatch = dispatch => ({
-  updateTask: (data, token) => dispatch(updateTask(data, token)),
-  updateTaskStatus: (data, token) => dispatch(updateTaskStatus(data, token)),
-  deleteTask: (task, token) => dispatch(deleteTask(task, token)),
+  updateTask: (_id, update, token) => dispatch(updateTask(_id, update, token)),
+  updateTaskStatus: (_id, status, token) => dispatch(updateTaskStatus(_id, status, token)),
+  deleteTask: (_id, token) => dispatch(deleteTask(_id, token)),
   dragTask: _id => dispatch({ type: 'DRAG_TASK', _id }),
 });
 

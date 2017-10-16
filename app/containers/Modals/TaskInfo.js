@@ -16,39 +16,27 @@ class TaskInfo extends Component {
   }
 
   updateTask(update) {
-    const { token, task } = this.props;
+    const { task, token } = this.props;
 
-    this.props.updateTask({
-      task_id: task._id,
-      board_id: task.board,
-      update,
-    }, token);
+    this.props.updateTask(task._id, update, token);
   }
 
   updateStatus(status) {
-    this.props.updateTaskStatus({
-      board_id: this.props.task.board,
-      task_id: this.props.task._id,
-      status,
-    }, this.props.token);
+    const { task, token } = this.props;
+
+    this.props.updateTaskStatus(task._id, status, token);
   }
 
   deleteTask() {
-    const { task } = this.props;
+    const { task, token } = this.props;
 
     if (task.attachments.length > 0) {
       alertify.confirm('Attached images will be lost. Are you sure?', () => {
-        this.props.deleteTask({
-          board_id: this.props.task.board,
-          task_id: this.props.task._id,
-        }, this.props.token);
+        this.props.deleteTask(task._id, this.props.token);
         this.props.redirect('/boards');
       });
     } else {
-      this.props.deleteTask({
-        board_id: this.props.task.board,
-        task_id: this.props.task._id,
-      }, this.props.token);
+      this.props.deleteTask(task._id, this.props.token);
       this.props.redirect('/boards');
     }
   }
@@ -69,11 +57,8 @@ class TaskInfo extends Component {
         uploading: true,
       })
 
-      const { token } = this.props;
-      this.props.attachImage({
-        board_id: this.props.task.board,
-        task_id: this.props.task._id,
-      }, upload, token)
+      const { task, token } = this.props;
+      this.props.attachImage(task._id, upload, token)
         .then(() => {
           this.setState({
             uploading: false,
@@ -87,7 +72,7 @@ class TaskInfo extends Component {
     }
   }
 
-  render() {    
+  render() {
     return (
       <TaskInfoComponent
         task={this.props.task}
@@ -110,10 +95,10 @@ const mapState = ({ token, tasks }, { params }) => ({
 
 const mapDispatch = dispatch => ({
   redirect: url => dispatch(push(url)),
-  updateTask: (update, token) => dispatch(updateTask(update, token)),
-  attachImage: (taskInfo, upload, token) => dispatch(attachImage(taskInfo, upload, token)),
-  updateTaskStatus: (data, token) => dispatch(updateTaskStatus(data, token)),
-  deleteTask: (task, token) => dispatch(deleteTask(task, token)),
+  updateTask: (_id, update, token) => dispatch(updateTask(_id, update, token)),
+  attachImage: (_id, upload, token) => dispatch(attachImage(_id, upload, token)),
+  updateTaskStatus: (_id, status, token) => dispatch(updateTaskStatus(_id, status, token)),
+  deleteTask: (_id, token) => dispatch(deleteTask(_id, token)),
 });
 
 export default connect(mapState, mapDispatch)(TaskInfo);

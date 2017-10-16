@@ -16,6 +16,7 @@ export const getTasks = () => dispatch => {
       });
     })
     .catch((err) => {
+      console.error(err);
       alertify.alert(err.message)
     });
 }
@@ -34,6 +35,7 @@ export const getBoardTasks = (_id) => dispatch => {
       });
     })
     .catch((err) => {
+      console.error(err);
       alertify.alert(err.message)
     });
 }
@@ -56,18 +58,19 @@ export const createTask = (task, token) => dispatch => {
       dispatch(getBoardTasks(task.board))
     })
     .catch((err) => {
+      console.error(err);
       alertify.alert(err.message)
     });
 }
 
-export const updateTask = ({ task_id, board_id, update }, token) => dispatch => {
+export const updateTask = (_id, update, token) => dispatch => {
   dispatch({
     type: 'UPDATE_TASK',
-    _id: task_id,
+    _id,
     update,
   });
 
-  Fetcher(`/boards/${board_id}/tasks/${task_id}`, {
+  Fetcher(`/boards/tasks/${_id}`, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
@@ -76,6 +79,7 @@ export const updateTask = ({ task_id, board_id, update }, token) => dispatch => 
     body: JSON.stringify(update),
   })
     .catch((err) => {
+      console.error(err);
       alertify.alert(err.message)
     });
 }
@@ -95,9 +99,9 @@ export const moveTask = (task_id, board_to, token) => dispatch => {
   }, token));
 }
 
-export const attachImage = ({ board_id, task_id }, upload, token) => dispatch => {
+export const attachImage = (_id, upload, token) => dispatch => {
   return new Promise((resolve, reject) => {
-    Fetcher(`/boards/${board_id}/tasks/${task_id}/attachment`, {
+    Fetcher(`/boards/tasks/${_id}/attachment`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
@@ -108,25 +112,26 @@ export const attachImage = ({ board_id, task_id }, upload, token) => dispatch =>
       .then((res) => {
         dispatch({
           type: 'ATTACH_TASK_IMAGE',
-          _id: task_id,
           url: res.url,
+          _id,
         });
         resolve();
       })
       .catch((err) => {
+        console.error(err);
         alertify.alert(err.message);
         reject(err.message);
       });
   });
 }
 
-export const deleteTask = ({ board_id, task_id }, token) => dispatch => {
+export const deleteTask = (_id, token) => dispatch => {
   dispatch({
     type: 'DELETE_TASK',
-    _id: task_id,
+    _id,
   });
 
-  Fetcher(`/boards/${board_id}/tasks/${task_id}`, {
+  Fetcher(`/boards/tasks/${_id}`, {
     method: 'DELETE',
     headers: {
       'Content-Type': 'application/json',
@@ -134,18 +139,19 @@ export const deleteTask = ({ board_id, task_id }, token) => dispatch => {
     },
   })
     .catch((err) => {
+      console.error(err);
       alertify.alert(err.message)
     });
 }
 
-export const updateTaskStatus = ({ board_id, task_id, status }, token) => dispatch => {
+export const updateTaskStatus = (_id, status, token) => dispatch => {
   dispatch({
     type: 'UPDATE_TASK_STATUS',
-    _id: task_id,
+    _id,
     status,
   });
 
-  Fetcher(`/boards/${board_id}/tasks/${task_id}/${status}`, {
+  Fetcher(`/boards/tasks/${_id}/${status}`, {
     method: 'PATCH',
     headers: {
       'Content-Type': 'application/json',
@@ -153,6 +159,7 @@ export const updateTaskStatus = ({ board_id, task_id, status }, token) => dispat
     },
   })
     .catch((err) => {
+      console.error(err);
       alertify.alert(err.message)
     });
 }
