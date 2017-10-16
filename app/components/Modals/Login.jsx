@@ -36,9 +36,9 @@ const LoginModal = ({ onHide, onSubmit, onGoogleLogin }) => {
 
         <Modal.Footer>
           <GoogleLogin
-            className="btn btn-primary pull-left"
+            className="btn-google pull-left"
             clientId={googleClientId}
-            buttonText="Sign in with Google"
+            buttonText=""
             onSuccess={e => onGoogleLogin(e)}
           />
           <Button onClick={onHide}>Close</Button>
