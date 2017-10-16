@@ -62,29 +62,55 @@ class Board extends Component {
     return (
       <BoardComponent
         title={board.title}
+        authorized={!!token}
         updateTitle={e => this.updateBoard(e)}
         deleteBoard={() => this.deleteBoard()}
         // drop
         onDragOver={e => this.onDragOver(e)}
         onDrop={e => this.onDrop(e)}
       >
-        {
-          tasks.map((task, index) => {
-            return (
-              <Task
-                task={task}
-                key={index}
-                index={index}
-                board_id={board._id}
-              />
-            )
-          })
-        }
+        <div>
+          {
+            tasks.map((task, index) => {
+              if (task.status === 'active') {
+                return (
+                  <Task
+                    task={task}
+                    key={index}
+                    index={index}
+                    board_id={board._id}
+                  />
+                )
+              }
+            })
+          }
+        </div>
+        <div className="divider"></div>
+        <div>
+          {
+            tasks.map((task, index) => {
+              if (task.status === 'complete') {
+                return (
+                  <Task
+                    task={task}
+                    key={index}
+                    index={index}
+                    board_id={board._id}
+                  />
+                )
+              }
+            })
+          }
+        </div>
+
         {
           token &&
-          <CreateTask
-            createTask={() => this.createEmptyTask()}
-          />
+          <div>
+            <div className="divider"></div>
+            <CreateTask
+              createTask={() => this.createEmptyTask()}
+            />
+          </div>
         }
       </BoardComponent>
     );

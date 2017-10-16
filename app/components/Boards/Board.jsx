@@ -3,7 +3,7 @@ import InlineEdit from 'react-edit-inline';
 
 import { Panel, Col } from 'react-bootstrap';
 
-const Board = ({ title, children, ...actions }) => {
+const Board = ({ title, children, authorized, ...actions }) => {
   const editableTitle = (
     <span>
       <InlineEdit
@@ -20,7 +20,7 @@ const Board = ({ title, children, ...actions }) => {
     <Col xs={12} md={6} lg={3}>
       <Panel
         className="board"
-        header={editableTitle}
+        header={ authorized ? editableTitle : title }
         onDragOver={actions.onDragOver}
         onDrop={actions.onDrop}
       >
