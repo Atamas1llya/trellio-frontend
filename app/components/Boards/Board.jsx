@@ -17,7 +17,7 @@ const Board = ({ title, children, ...actions }) => {
   )
 
   return (
-    <Col xs={12} md={5} lg={3}>
+    <Col xs={12} md={6} lg={3}>
       <Panel
         className="board"
         header={editableTitle}
