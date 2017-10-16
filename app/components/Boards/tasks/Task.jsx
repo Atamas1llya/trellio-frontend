@@ -78,13 +78,15 @@ export default ({ _id, title, authorized, completed, attachments = [], dueDate, 
     }
   } else {
     return (
-      <div className="task fadeIn animated">
-        <span className="title">
-          <span className="title-text">
-            { title }
+      <Link to={`/boards/tasks/${_id}`}>
+        <div className="task fadeIn animated">
+          <span className="title">
+            <span className="title-text">
+              { title }
+            </span>
           </span>
-        </span>
-      </div>
+        </div>
+      </Link>
     );
   }
 };

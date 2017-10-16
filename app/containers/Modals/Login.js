@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { push } from 'react-router-redux';
 import getFormData from 'get-form-data';
 
 import { login, googleLogin } from '../../actions/api/auth';
@@ -32,7 +33,10 @@ class LoginModal extends Component {
 };
 
 const mapDispatch = dispatch => ({
-  hideModal: () => dispatch({ type: 'TOGGLE_MODAL', modal: null }),
+  hideModal: () => {
+    dispatch({ type: 'TOGGLE_MODAL', modal: null });
+    dispatch(push('/'));
+  },
   login: credentials => dispatch(login(credentials)),
   googleLogin: credentials => dispatch(googleLogin(credentials)),
 });
