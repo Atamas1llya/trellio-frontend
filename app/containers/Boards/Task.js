@@ -44,6 +44,11 @@ class Task extends Component {
     }, token);
   }
 
+  // drag task
+
+  onDragStart(e) {
+    this.props.dragTask(this.props.task._id)
+  }
 
   render() {
     const { task } = this.props;
@@ -57,6 +62,8 @@ class Task extends Component {
         activateTask={() => this.updateStatus('active')}
         deleteTask={() => this.deleteTask()}
         index={this.props.index}
+        // drag
+        onDragStart={e => this.onDragStart(e)}
         {...task}
       />
     );
@@ -71,6 +78,7 @@ const mapDispatch = dispatch => ({
   updateTask: (data, token) => dispatch(updateTask(data, token)),
   updateTaskStatus: (data, token) => dispatch(updateTaskStatus(data, token)),
   deleteTask: (task, token) => dispatch(deleteTask(task, token)),
+  dragTask: _id => dispatch({ type: 'DRAG_TASK', _id }),
 });
 
 export default connect(mapState, mapDispatch)(Task);

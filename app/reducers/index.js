@@ -9,6 +9,8 @@ import user from './user';
 import boards from './boards';
 import tasks from './tasks';
 
+import dragndrop from './dragndrop';
+
 export default combineReducers({
   routing: routerReducer,
   token,
@@ -16,4 +18,5 @@ export default combineReducers({
   user,
   boards,
   tasks,
+  dragndrop,
 });

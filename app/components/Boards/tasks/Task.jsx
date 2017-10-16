@@ -15,7 +15,11 @@ export default ({ _id, title, authorized, completed, attachments = [], dueDate, 
   if (authorized) {
     if (completed) {
       return (
-        <div className="task completed fadeIn animated">
+        <div
+          className="task completed fadeIn animated"
+          draggable="true"
+          onDragStart={actions.onDragStart}
+        >
           <span className="title">
             <span className="title-text">
               { editableTitle }
@@ -42,7 +46,11 @@ export default ({ _id, title, authorized, completed, attachments = [], dueDate, 
       );
     } else {
       return (
-        <div className="task fadeIn animated">
+        <div
+          className="task fadeIn animated"
+          draggable="true"
+          onDragStart={actions.onDragStart}
+        >
           <span className="title">
             <span className="title-text">
               { editableTitle }

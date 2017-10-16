@@ -18,7 +18,12 @@ const Board = ({ title, children, ...actions }) => {
 
   return (
     <Col xs={12} md={5} lg={3}>
-      <Panel className="board" header={editableTitle}>
+      <Panel
+        className="board"
+        header={editableTitle}
+        onDragOver={actions.onDragOver}
+        onDrop={actions.onDrop}
+      >
         { children }
       </Panel>
     </Col>

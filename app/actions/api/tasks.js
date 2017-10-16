@@ -80,6 +80,21 @@ export const updateTask = ({ task_id, board_id, update }, token) => dispatch => 
     });
 }
 
+export const moveTask = (task_id, board_to, token) => dispatch => {
+  dispatch({
+    type: 'MOVE_TASK',
+    task_id: task_id,
+    board_id: board_to,
+  });
+
+  dispatch(updateTask({
+    task_id,
+    update: {
+      board: board_to,
+    }
+  }, token));
+}
+
 export const attachImage = ({ board_id, task_id }, upload, token) => dispatch => {
   return new Promise((resolve, reject) => {
     Fetcher(`/boards/${board_id}/tasks/${task_id}/attachment`, {

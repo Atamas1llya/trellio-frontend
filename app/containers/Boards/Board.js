@@ -7,7 +7,7 @@ import Task from './Task';
 import CreateTask from '../../components/Boards/tasks/CreateTask';
 
 import { updateBoard, deleteBoard } from '../../actions/api/boards';
-import { createTask, updateTask } from '../../actions/api/tasks';
+import { createTask, updateTask, moveTask } from '../../actions/api/tasks';
 
 class Board extends Component {
   updateBoard(update) {
@@ -41,6 +41,21 @@ class Board extends Component {
     this.props.createTask(task, token);
   }
 
+  // drop
+
+  onDragOver(e) {
+    e.preventDefault();
+  }
+
+  onDrop(e, v) { // element dropped on panel
+    const task_id = this.props.draggedTask;
+    const board_id = this.props.board._id;
+    const { token } = this.props;
+
+    this.props.moveTask(task_id, board_id, token);
+    e.preventDefault();
+  }
+
   render() {
     const { token, board, tasks } = this.props;
 
@@ -49,6 +64,9 @@ class Board extends Component {
         title={board.title}
         updateTitle={e => this.updateBoard(e)}
         deleteBoard={() => this.deleteBoard()}
+        // drop
+        onDragOver={e => this.onDragOver(e)}
+        onDrop={e => this.onDrop(e)}
       >
         {
           tasks.map((task, index) => {
@@ -73,9 +91,10 @@ class Board extends Component {
   }
 };
 
-const mapState = ({ token, tasks }, { board }) => ({
+const mapState = ({ token, tasks, dragndrop }, { board }) => ({
   token,
   tasks: tasks.filter(task => task.board === board._id),
+  draggedTask: dragndrop,
 });
 
 const mapDispatch = dispatch => ({
@@ -83,6 +102,7 @@ const mapDispatch = dispatch => ({
   deleteBoard: (_id, token) => dispatch(deleteBoard(_id, token)),
   createTask: (task, token) => dispatch(createTask(task, token)),
   updateTask: (task, token) => dispatch(updateTask(task, token)),
+  moveTask: (task_id, board_to, token) => dispatch(moveTask(task_id, board_to, token)),
 });
 
 export default connect(mapState, mapDispatch)(Board);

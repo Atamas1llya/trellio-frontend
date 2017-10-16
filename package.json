@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node_modules/.bin/babel-node server.js",
     "watch": "node_modules/.bin/webpack --watch --colors",
-    "build": "node_modules/.bin/webpack -p"
+    "build": "node_modules/.bin/webpack -p --progress"
   },
   "repository": {
     "type": "git",
